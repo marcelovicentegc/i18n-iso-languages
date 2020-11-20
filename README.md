@@ -1,10 +1,10 @@
-# i18n-language-codes
+# i18n-iso-languages
 
 ## Installation
 
-> `yarn add i18n-language-codes`
+> `yarn add i18n-iso-languages`
 
-> `npm i i18n-language-codes`
+> `npm i i18n-iso-languages`
 
 ## Compliance
 
@@ -35,7 +35,7 @@ For more information, see https://en.wikipedia.org/wiki/IETF_language_tag
 Language subtag registry: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
 
 ```tsx
-import { getLocaleByIETFLanguageTag } from `i18n-language-codes`;
+import { getLocaleByIETFLanguageTag } from `i18n-iso-languages`;
 
 const locale = getLocaleByIETFLanguageTag("pt-BR");
 
@@ -71,7 +71,7 @@ if (locale) {
 Get locales object by official language.
 
 ```tsx
-import { getLocalesByOfficialLanguage } from `i18n-language-codes`;
+import { getLocalesByOfficialLanguage } from `i18n-iso-languages`;
 
 const locales = getLocalesByOfficialLanguage("portuguese");
 
