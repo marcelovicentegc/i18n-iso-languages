@@ -1,0 +1,1 @@
+gh-pages -d example/out -b gh-pages -r https://$GH_TOKEN@github.com/marcelovicentegc/i18n-iso-languages.git
