@@ -1,4 +1,4 @@
-import { query, get } from "../core/internal";
+import { query, get, globalConfiguration } from "../core/internal";
 import { locales } from "./locales";
 import { Locale, Options } from "./types";
 
@@ -168,4 +168,14 @@ export function getLocaleByISO3166Alpha2(
     possibleMatch: countryCode,
     tryFallback: !!options?.tryFallback,
   });
+}
+
+export function getLocales() {
+  const { localesSubset } = globalConfiguration;
+
+  if (localesSubset.length) {
+    return localesSubset;
+  } else {
+    return locales;
+  }
 }
