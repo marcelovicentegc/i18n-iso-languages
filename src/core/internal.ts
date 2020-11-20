@@ -16,7 +16,11 @@ interface GetterParams {
   tryFallback?: boolean;
 }
 
-export function get({ key, possibleMatch, tryFallback = false }: GetterParams) {
+export function get({
+  key,
+  possibleMatch,
+  tryFallback = false,
+}: GetterParams): Locale | undefined {
   const subset = globalConfiguration.localesSubset;
   let fallback: Locale | undefined = undefined;
 

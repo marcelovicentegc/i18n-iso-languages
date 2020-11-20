@@ -1,6 +1,6 @@
 import { query, get } from "../core/internal";
 import { locales } from "./locales";
-import { Locale } from "./types";
+import { Locale, Options } from "./types";
 
 /**
  * Get locale object by IETF language tag.
@@ -77,7 +77,10 @@ export
  * // }]
  * ```
  */
-export function getLocaleByIETFLanguageTag(tag: string | string[]) {
+export function getLocaleByIETFLanguageTag(
+  tag: string | string[],
+  options?: Options
+) {
   if (Array.isArray(tag)) {
     return tag
       .map((languageTag) =>
@@ -86,7 +89,11 @@ export function getLocaleByIETFLanguageTag(tag: string | string[]) {
       .filter((locale) => locale !== undefined) as Locale[];
   }
 
-  return get({ key: "IETFLanguageTag", possibleMatch: tag });
+  return get({
+    key: "IETFLanguageTag",
+    possibleMatch: tag,
+    tryFallback: !!options?.tryFallback,
+  });
 }
 
 /**
@@ -133,14 +140,32 @@ export function getLocaleByIETFLanguageTag(tag: string | string[]) {
  * // pt-PT
  * ```
  */
-export function getLocalesByOfficialLanguage(language: string) {
-  return query({ key: "officialLanguage", possibleMatch: language });
+export function getLocalesByOfficialLanguage(
+  language: string,
+  options?: Options
+) {
+  return query({
+    key: "officialLanguage",
+    possibleMatch: language,
+    tryFallback: !!options?.tryFallback,
+  });
 }
 
-export function getLocaleByRegion(region: string) {
-  return get({ key: "region", possibleMatch: region });
+export function getLocaleByRegion(region: string, options?: Options) {
+  return get({
+    key: "region",
+    possibleMatch: region,
+    tryFallback: !!options?.tryFallback,
+  });
 }
 
-export function getLocaleByISO3166Alpha2(countryCode: string) {
-  return get({ key: "ISO31661Alpha2", possibleMatch: countryCode });
+export function getLocaleByISO3166Alpha2(
+  countryCode: string,
+  options?: Options
+) {
+  return get({
+    key: "ISO31661Alpha2",
+    possibleMatch: countryCode,
+    tryFallback: !!options?.tryFallback,
+  });
 }

@@ -52,3 +52,7 @@ export interface Locale {
 }
 
 export type LocaleKey = keyof Locale;
+
+export interface Options {
+  tryFallback?: boolean;
+}
