@@ -16,7 +16,7 @@ import { locales } from "./locales";
  *
  * ## @example
  * ```tsx
- * import { getLocaleByIETFLanguageTag } from `i18n-iso-languages`
+ * import { getLocaleByIETFLanguageTag } from `@marcelovicentegc/i18n-iso-languages`
  *
  * const locale = getLocaleByIETFLanguageTag("pt-BR")
  *
@@ -46,7 +46,7 @@ export function getLocaleByIETFLanguageTag(tag: string) {
  *
  * ## @example
  * ```tsx
- * import { getLocalesByOfficialLanguage } from `i18n-iso-languages`
+ * import { getLocalesByOfficialLanguage } from `@marcelovicentegc/i18n-iso-languages`
  *
  * const locales = getLocalesByOfficialLanguage("portuguese")
  *
