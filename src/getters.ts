@@ -1,4 +1,5 @@
 import { locales } from "./locales";
+import { Locale } from "./types";
 
 /**
  * Get locale object by IETF language tag.
@@ -35,9 +36,51 @@ import { locales } from "./locales";
  *  console.log(ISO31661Alpha3)
  *  // BRA
  * }
+ *
+ * const locales = getLocaleByIETFLanguageTag(["pt-BR", "pt-PT", "en-US", "non-existent-tag", "another-non-existent-tag"])
+ *
+ * console.log(locales)
+ * // [{
+ * //  officialLanguage: 'English',
+ * //  region: 'United States',
+ * //  nativeOfficialLanguage: 'English',
+ * //  nativeRegion: 'United States',
+ * //  ISO6391: 'us',
+ * //  ISO31661Alpha2: 'US',
+ * //  ISO31661Alpha3: 'USA',
+ * //  IETFLanguageTag: 'en-US'
+ * // },
+ * // {
+ * //  officialLanguage: 'Portuguese',
+ * //  region: 'Brazil',
+ * //  nativeOfficialLanguage: 'Português',
+ * //  nativeRegion: 'Brasil',
+ * //  ISO6391: 'br',
+ * //  ISO31661Alpha2: 'BR',
+ * //  ISO31661Alpha3: 'BRA',
+ * //  IETFLanguageTag: 'pt-BR'
+ * // },
+ * // {
+ * //  officialLanguage: 'Portuguese',
+ * //  region: 'Portugal',
+ * //  nativeOfficialLanguage: 'Português',
+ * //  nativeRegion: 'Portugal',
+ * //  ISO6391: 'pt',
+ * //  ISO31661Alpha2: 'PT',
+ * //  ISO31661Alpha3: 'PRT',
+ * //  IETFLanguageTag: 'pt-PT'
+ * // }]
  * ```
  */
-export function getLocaleByIETFLanguageTag(tag: string) {
+export function getLocaleByIETFLanguageTag(tag: string | string[]) {
+  if (Array.isArray(tag)) {
+    return tag
+      .map((languageTag) =>
+        locales.find(({ IETFLanguageTag }) => IETFLanguageTag === languageTag)
+      )
+      .filter((locale) => locale !== undefined) as Locale[];
+  }
+
   return locales.find(({ IETFLanguageTag }) => IETFLanguageTag === tag);
 }
 
