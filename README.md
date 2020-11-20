@@ -1,5 +1,7 @@
 # @marcelovicentegc/i18n-iso-languages
 
+[![npm version](https://badge.fury.io/js/%40marcelovicentegc%2Fi18n-iso-languages.svg)](https://badge.fury.io/js/%40marcelovicentegc%2Fi18n-iso-languages)
+
 ## Installation
 
 > yarn add @marcelovicentegc/i18n-iso-languages

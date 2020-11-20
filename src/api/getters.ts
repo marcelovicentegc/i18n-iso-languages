@@ -1,3 +1,4 @@
+import { query, get } from "../core/internal";
 import { locales } from "./locales";
 import { Locale } from "./types";
 
@@ -23,7 +24,11 @@ import { Locale } from "./types";
  *
  * if (locale) {
  *  const { officialLanguage, region, nativeOfficialLanguage, nativeRegion, ISO31661Alpha2, ISO31661Alpha3 } = locale
- *  console.log(officialLanguage)
+ *  console.log(officialLanguage)export { locales } from "./api/locales";
+export { Locale } from "./api/types";
+export { configure } from "./api/configure";
+
+export 
  *  // Portuguese
  *  console.log(region)
  *  // Brazil
@@ -81,7 +86,7 @@ export function getLocaleByIETFLanguageTag(tag: string | string[]) {
       .filter((locale) => locale !== undefined) as Locale[];
   }
 
-  return locales.find(({ IETFLanguageTag }) => IETFLanguageTag === tag);
+  return get({ key: "IETFLanguageTag", possibleMatch: tag });
 }
 
 /**
@@ -129,22 +134,13 @@ export function getLocaleByIETFLanguageTag(tag: string | string[]) {
  * ```
  */
 export function getLocalesByOfficialLanguage(language: string) {
-  return locales.filter(
-    (locale) =>
-      locale.officialLanguage.toLowerCase() === language.toLowerCase().trim()
-  );
+  return query({ key: "officialLanguage", possibleMatch: language });
 }
 
 export function getLocaleByRegion(region: string) {
-  return locales.find(
-    ({ region: localeRegion }) =>
-      localeRegion.toLowerCase() === region.toLowerCase().trim()
-  );
+  return get({ key: "region", possibleMatch: region });
 }
 
 export function getLocaleByISO3166Alpha2(countryCode: string) {
-  return locales.find(
-    ({ ISO31661Alpha2 }) =>
-      ISO31661Alpha2.toLowerCase() === countryCode.toLowerCase().trim()
-  );
+  return get({ key: "ISO31661Alpha2", possibleMatch: countryCode });
 }

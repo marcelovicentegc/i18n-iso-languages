@@ -50,3 +50,5 @@ export interface Locale {
    */
   IETFLanguageTag: string;
 }
+
+export type LocaleKey = keyof Locale;
