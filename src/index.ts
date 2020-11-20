@@ -3,6 +3,7 @@ export {
   getLocaleByISO3166Alpha2,
   getLocaleByRegion,
   getLocalesByOfficialLanguage,
+  getLocales,
   locales,
   Locale,
   LocaleKey,
