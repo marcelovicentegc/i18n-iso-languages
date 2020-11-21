@@ -52,6 +52,30 @@ const localesConfigPlaceholder: Array<ConfigOptions> = [
       locales: ["spa", "arb"],
     },
   },
+  {
+    localesSubset: {
+      lookupKey: "officialLanguage",
+      locales: ["Portuguese", "English", "Chinese"],
+    },
+  },
+  {
+    localesSubset: {
+      lookupKey: "nativeOfficialLanguage",
+      locales: ["Português", "English", "中文"],
+    },
+  },
+  {
+    localesSubset: {
+      lookupKey: "region",
+      locales: ["Germany", "India"],
+    },
+  },
+  {
+    localesSubset: {
+      lookupKey: "nativeRegion",
+      locales: ["Deutschland", "भारत गणराज्य"],
+    },
+  },
 ];
 
 configure({
@@ -172,13 +196,17 @@ const locales = getLocales()
 locales.map((locale) => {
   return (
     <>
-      <div className="separator" />
-      <p>Official language: {locale.officialLanguage}</p>
-      <p>Region: {locale.region}</p>
-      <p>ISO 639-1: {locale.ISO6391}</p>
-      <p>ISO 3166-1 alpha-2: {locale.ISO31661Alpha2}</p>
-      <p>ISO 3166-1 alpha-3: {locale.ISO31661Alpha3}</p>
-      <p>IETFL language tag: {locale.IETFLanguageTag}</p>
+    <div className="separator" />
+    <p>Official language: {locale.officialLanguage}</p>
+    <p>
+      Native official language: {locale.nativeOfficialLanguage}
+    </p>
+    <p>Region: {locale.region}</p>
+    <p>Native region: {locale.nativeRegion}</p>
+    <p>ISO 639-1: {locale.ISO6391}</p>
+    <p>ISO 3166-1 alpha-2: {locale.ISO31661Alpha2}</p>
+    <p>ISO 3166-1 alpha-3: {locale.ISO31661Alpha3}</p>
+    <p>IETFL language tag: {locale.IETFLanguageTag}</p>
     </>
   );
 })
@@ -189,7 +217,11 @@ locales.map((locale) => {
                 <Fragment key={index}>
                   <div className="separator" />
                   <p>Official language: {locale.officialLanguage}</p>
+                  <p>
+                    Native official language: {locale.nativeOfficialLanguage}
+                  </p>
                   <p>Region: {locale.region}</p>
+                  <p>Native region: {locale.nativeRegion}</p>
                   <p>ISO 639-1: {locale.ISO6391}</p>
                   <p>ISO 3166-1 alpha-2: {locale.ISO31661Alpha2}</p>
                   <p>ISO 3166-1 alpha-3: {locale.ISO31661Alpha3}</p>
@@ -207,7 +239,7 @@ locales.map((locale) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Brought to you with ❤️
+          Brought to you with ❤️ by Marcelo Cardoso
         </a>
       </footer>
 
