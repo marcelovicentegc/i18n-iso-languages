@@ -1,5 +1,5 @@
 {
-  "name": "example",
+  "name": "@marcelovicentegc/i18n-iso-languages-demo",
   "version": "0.1.0",
   "scripts": {
     "dev": "next dev",
