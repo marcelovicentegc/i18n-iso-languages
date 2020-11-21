@@ -1,17 +1,94 @@
 import Head from "next/head";
-import { Fragment } from "react";
+import Select from "react-select";
+import { Fragment, useState } from "react";
 import { CodeBlock } from "../components/CodeBlock";
-import { configure, getLocales } from "@marcelovicentegc/i18n-iso-languages";
+import {
+  configure as conf,
+  getLocales,
+  LocaleKey,
+} from "@marcelovicentegc/i18n-iso-languages";
+
+interface ConfigOptions {
+  localesSubset: {
+    lookupKey: LocaleKey;
+    locales: string[];
+  };
+}
+
+const configure = (options: ConfigOptions) => {
+  conf(options);
+};
+
+const defaultLookupKey: LocaleKey = "IETFLanguageTag";
+const defaultLocales = ["en-US", "pt-BR", "it-IT", "es-AR"];
+const localesConfigPlaceholder: Array<ConfigOptions> = [
+  {
+    localesSubset: {
+      lookupKey: defaultLookupKey,
+      locales: defaultLocales,
+    },
+  },
+  {
+    localesSubset: {
+      lookupKey: "ISO31661Alpha2",
+      locales: ["EN", "PT"],
+    },
+  },
+  {
+    localesSubset: {
+      lookupKey: "ISO31661Alpha3",
+      locales: ["MEX", "BRA", "CHN"],
+    },
+  },
+  {
+    localesSubset: {
+      lookupKey: "ISO6391",
+      locales: ["de", "en", "pt"],
+    },
+  },
+  {
+    localesSubset: {
+      lookupKey: "ISO6392",
+      locales: ["spa", "arb"],
+    },
+  },
+];
 
 configure({
   localesSubset: {
-    lookupKey: "IETFLanguageTag",
-    locales: ["en-US", "pt-BR", "it-IT", "es-AR"],
+    lookupKey: defaultLookupKey,
+    locales: defaultLocales,
   },
 });
 
 export default function Home() {
   const locales = getLocales();
+  const [demoLookupKey, setDemoLookupKey] = useState<LocaleKey>(
+    "IETFLanguageTag"
+  );
+  const [demoLocales, setDemoLocales] = useState<string[]>(defaultLocales);
+  const [futureDemoLookupKey, setFutureDemoLookupKey] = useState<LocaleKey>(
+    demoLookupKey
+  );
+  const [futureDemoLocales, setFutureDemoLocales] = useState<string[]>(
+    demoLocales
+  );
+  const [
+    demoLocalesPlaceholder,
+    setDemoLocalesPlaceholder,
+  ] = useState<ConfigOptions>(localesConfigPlaceholder[0]);
+
+  const options: { value: LocaleKey; label: string }[] = [
+    { value: "IETFLanguageTag", label: "IETF language tag" },
+    { value: "ISO31661Alpha2", label: "ISO 3166-1 alpha-2" },
+    { value: "ISO31661Alpha3", label: "ISO 3166-1 alpha-3" },
+    { value: "ISO6391", label: "ISO 639-1" },
+    { value: "ISO6392", label: "ISO 639-2" },
+    { value: "nativeOfficialLanguage", label: "Native official language" },
+    { value: "nativeRegion", label: "Native region" },
+    { value: "officialLanguage", label: "Official language" },
+    { value: "region", label: "Region" },
+  ];
 
   return (
     <div className="container">
@@ -31,14 +108,54 @@ export default function Home() {
         <div className="grid">
           <div className="card">
             <h3>configure</h3>
+            <h5>lookup key</h5>
+            <Select
+              options={options}
+              defaultValue={options[0]}
+              onChange={(option: { value: LocaleKey; label: string }) => {
+                setFutureDemoLookupKey(option.value);
+
+                const config = localesConfigPlaceholder.find(
+                  (conf) => conf.localesSubset.lookupKey === option.value
+                );
+
+                setFutureDemoLocales(config.localesSubset.locales);
+                setDemoLocalesPlaceholder(config);
+              }}
+            />
+            <h5>locales</h5>
+            <input
+              placeholder={demoLocalesPlaceholder.localesSubset.locales.join(
+                ","
+              )}
+              value={futureDemoLocales.join()}
+              onChange={(event) =>
+                setFutureDemoLocales(event.target.value.split(","))
+              }
+            />
+            <button
+              onClick={() => {
+                configure({
+                  localesSubset: {
+                    lookupKey: futureDemoLookupKey,
+                    locales: futureDemoLocales,
+                  },
+                });
+                setDemoLookupKey(futureDemoLookupKey);
+                setDemoLocales(futureDemoLocales);
+              }}
+            >
+              Reconfigure
+            </button>
+            <div className="separator" />
             <CodeBlock>
               {`
 import { configure } from '@marcelovicentegc/i18n-iso-languages'
               
 configure({
   localesSubset: {
-    lookupKey: 'IETFLanguageTag',
-    locales: ['en-US', 'pt-BR', 'it-IT', 'es-AR'],
+    lookupKey: '${demoLookupKey}',
+    locales: [${demoLocales.map((locale) => `'${locale}'`)}],
   },
 })
               `}
@@ -175,17 +292,17 @@ locales.map((locale) => {
 
         .grid {
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           justify-content: center;
-          flex-direction: column;
+          flex-wrap: wrap;
 
-          max-width: 800px;
+          max-width: 1260px;
           margin-top: 3rem;
         }
 
         .card {
           margin: 1rem;
-          flex-basis: 45%;
+          flex-basis: 30%;
           padding: 1.5rem;
           text-align: left;
           color: inherit;
@@ -193,6 +310,49 @@ locales.map((locale) => {
           border: 1px solid #eaeaea;
           border-radius: 10px;
           transition: color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .card input {
+          padding: 0.5rem;
+          height: 38px;
+          border-radius: 4px;
+          border: 0.5px solid hsl(0, 0%, 80%);
+          width: 100%;
+          font-size: 16px;
+          transition: all 100ms;
+          color: hsl(0, 0%, 20%);
+        }
+
+        .card input:focus {
+          outline: none;
+          border: 1px solid #2684ff;
+          box-shadow: 0 0 0 1px #2684ff;
+        }
+
+        .card button {
+          margin-top: 1.5rem;
+          padding: 0.5rem;
+          border-radius: 4px;
+          background-color: #fff;
+          border: 0.5px solid hsl(0, 0%, 80%);
+          color: hsl(0, 0%, 20%);
+          cursor: pointer;
+          transition: all 100ms;
+        }
+
+        .card button:focus,
+        .card button:hover {
+          outline: none;
+          border: 1px solid #2684ff;
+          box-shadow: 0 0 0 1px #2684ff;
+        }
+
+        .card button:active {
+          outline: none;
+          border: 1px solid #2684ff;
+          box-shadow: 0 0 0 1px #2684ff;
+          background-color: #2684ff;
+          color: #fff;
         }
 
         .card h3 {
@@ -228,6 +388,12 @@ locales.map((locale) => {
       <style jsx global>{`
         html,
         body {
+          --scrollbarBG: #fff;
+          --thumbBG: #000;
+
+          scrollbar-width: thin;
+          scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+
           padding: 0;
           margin: 0;
           font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
@@ -237,6 +403,20 @@ locales.map((locale) => {
 
         * {
           box-sizing: border-box;
+        }
+
+        html::-webkit-scrollbar-thumb {
+          background-color: var(--thumbBG);
+          border-radius: 6px;
+          border: 3px solid var(--scrollbarBG);
+        }
+
+        html::-webkit-scrollbar-track {
+          background: var(--scrollbarBG);
+        }
+
+        html::-webkit-scrollbar {
+          width: 11px;
         }
       `}</style>
     </div>
