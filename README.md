@@ -65,9 +65,7 @@ The following keywords are available:
 - `region`
 - `nativeRegion`
 
-**It's advised to use one of the ISO keywords if you need fine grained control over what you need on your locales subset, because the other ones might include countries/regions that you don't necessarily need**
-
-###### Examples
+##### Examples
 
 **Configuring a subset of locales by the IETF language tag pattern**
 
@@ -88,6 +86,60 @@ const locales = getLocales();
 console.log(JSON.stringify(locales));
 ```
 
+<details>
+  <summary>Click here to see what the `console.log` above outputs 👀</summary>
+
+```json
+[
+  {
+    "officialLanguage": "English",
+    "region": "United States",
+    "nativeOfficialLanguage": "English",
+    "nativeRegion": "United States",
+    "ISO6391": "en",
+    "ISO6392": "eng",
+    "ISO31661Alpha2": "US",
+    "ISO31661Alpha3": "USA",
+    "IETFLanguageTag": "en-US"
+  },
+  {
+    "officialLanguage": "Spanish",
+    "region": "Argentina",
+    "nativeOfficialLanguage": "Español",
+    "nativeRegion": "Argentina",
+    "ISO6391": "es",
+    "ISO6392": "spa",
+    "ISO31661Alpha2": "AR",
+    "ISO31661Alpha3": "ARG",
+    "IETFLanguageTag": "es-AR"
+  },
+  {
+    "officialLanguage": "Portuguese",
+    "region": "Brazil",
+    "nativeOfficialLanguage": "Português",
+    "nativeRegion": "Brasil",
+    "ISO6391": "pt",
+    "ISO6392": "por",
+    "ISO31661Alpha2": "BR",
+    "ISO31661Alpha3": "BRA",
+    "IETFLanguageTag": "pt-BR"
+  },
+  {
+    "officialLanguage": "Italian",
+    "region": "Italy",
+    "nativeOfficialLanguage": "Italiano",
+    "nativeRegion": "Italia",
+    "ISO6391": "it",
+    "ISO6392": "ita",
+    "ISO31661Alpha2": "IT",
+    "ISO31661Alpha3": "ITA",
+    "IETFLanguageTag": "it-IT"
+  }
+]
+```
+
+</details>
+
 **Configuring a subset of locales by the ISO 3166-1 alpha-3 standard**
 
 ```tsx
@@ -107,6 +159,49 @@ const locales = getLocales();
 console.log(JSON.stringify(locales));
 ```
 
+<details>
+  <summary>Click here to see what the `console.log` above outputs 👀</summary>
+
+```json
+[
+  {
+    "officialLanguage": "Chinese",
+    "region": "China",
+    "nativeOfficialLanguage": "中文",
+    "nativeRegion": "中华人民共和国",
+    "ISO6391": "zh",
+    "ISO6392": "zho",
+    "ISO31661Alpha2": "CN",
+    "ISO31661Alpha3": "CHN",
+    "IETFLanguageTag": "zh-CN"
+  },
+  {
+    "officialLanguage": "Spanish",
+    "region": "Mexico",
+    "nativeOfficialLanguage": "Español",
+    "nativeRegion": "México",
+    "ISO6391": "es",
+    "ISO6392": "spa",
+    "ISO31661Alpha2": "MX",
+    "ISO31661Alpha3": "MEX",
+    "IETFLanguageTag": "es-MX"
+  },
+  {
+    "officialLanguage": "Portuguese",
+    "region": "Brazil",
+    "nativeOfficialLanguage": "Português",
+    "nativeRegion": "Brasil",
+    "ISO6391": "pt",
+    "ISO6392": "por",
+    "ISO31661Alpha2": "BR",
+    "ISO31661Alpha3": "BRA",
+    "IETFLanguageTag": "pt-BR"
+  }
+]
+```
+
+</details>
+
 **Configuring a subset of locales by the ISO 639-2 standard**
 
 ```tsx
@@ -125,6 +220,168 @@ const locales = getLocales();
 
 console.log(JSON.stringify(locales));
 ```
+
+<details>
+  <summary>Click here to see what the `console.log` above outputs 👀</summary>
+
+```json
+[
+  {
+    "officialLanguage": "Spanish",
+    "region": "Mexico",
+    "nativeOfficialLanguage": "Español",
+    "nativeRegion": "México",
+    "ISO6391": "es",
+    "ISO6392": "spa",
+    "ISO31661Alpha2": "MX",
+    "ISO31661Alpha3": "MEX",
+    "IETFLanguageTag": "es-MX"
+  },
+  {
+    "officialLanguage": "Spanish",
+    "region": "Colombia",
+    "nativeOfficialLanguage": "Español",
+    "nativeRegion": "Colombia",
+    "ISO6391": "es",
+    "ISO6392": "spa",
+    "ISO31661Alpha2": "CO",
+    "ISO31661Alpha3": "COL",
+    "IETFLanguageTag": "es-CO"
+  },
+  {
+    "officialLanguage": "Spanish",
+    "region": "Spain",
+    "nativeOfficialLanguage": "Español",
+    "nativeRegion": "España",
+    "ISO6391": "es",
+    "ISO6392": "spa",
+    "ISO31661Alpha2": "ES",
+    "ISO31661Alpha3": "ESP",
+    "IETFLanguageTag": "es-ES"
+  },
+  {
+    "officialLanguage": "Spanish",
+    "region": "Argentina",
+    "nativeOfficialLanguage": "Español",
+    "nativeRegion": "Argentina",
+    "ISO6391": "es",
+    "ISO6392": "spa",
+    "ISO31661Alpha2": "AR",
+    "ISO31661Alpha3": "ARG",
+    "IETFLanguageTag": "es-AR"
+  },
+  {
+    "officialLanguage": "Egyptian Arabic",
+    "region": "Egypt",
+    "nativeOfficialLanguage": "اللهجه المصريه",
+    "nativeRegion": "جمهورية مصر العربية",
+    "ISO6391": "ar",
+    "ISO6392": "arb",
+    "ISO31661Alpha2": "EG",
+    "ISO31661Alpha3": "EGY",
+    "IETFLanguageTag": "ar-EG"
+  },
+  {
+    "officialLanguage": "Standard Arabic",
+    "region": "Arabic League",
+    "nativeOfficialLanguage": "عربي فصيح",
+    "nativeRegion": "جامعة الدول العربية",
+    "ISO6391": "ar",
+    "ISO6392": "arb",
+    "ISO31661Alpha2": "AE",
+    "ISO31661Alpha3": "ARE",
+    "IETFLanguageTag": "ar"
+  }
+]
+```
+
+</details>
+
+**Configuring a subset of locales by the ISO 639-2 standard**
+
+```tsx
+import { configure } from "@marcelovicentegc/i18n-iso-languages";
+
+configure({
+  localesSubset: {
+    lookupKey: "officialLanguage",
+    locales: ["Portuguese", "English", "Chinese"],
+  },
+});
+
+// on other files...
+
+const locales = getLocales();
+
+console.log(JSON.stringify(locales));
+```
+
+<details>
+  <summary>Click here to see what the `console.log` above outputs 👀</summary>
+
+```json
+[
+  {
+    "officialLanguage": "English",
+    "region": "United States",
+    "nativeOfficialLanguage": "English",
+    "nativeRegion": "United States",
+    "ISO6391": "en",
+    "ISO6392": "eng",
+    "ISO31661Alpha2": "US",
+    "ISO31661Alpha3": "USA",
+    "IETFLanguageTag": "en-US"
+  },
+  {
+    "officialLanguage": "English",
+    "region": "United Kingdom",
+    "nativeOfficialLanguage": "English",
+    "nativeRegion": "United Kingdom",
+    "ISO6391": "en",
+    "ISO6392": "eng",
+    "ISO31661Alpha2": "GB",
+    "ISO31661Alpha3": "GBR",
+    "IETFLanguageTag": "en-GB"
+  },
+  {
+    "officialLanguage": "Chinese",
+    "region": "China",
+    "nativeOfficialLanguage": "中文",
+    "nativeRegion": "中华人民共和国",
+    "ISO6391": "zh",
+    "ISO6392": "zho",
+    "ISO31661Alpha2": "CN",
+    "ISO31661Alpha3": "CHN",
+    "IETFLanguageTag": "zh-CN"
+  },
+  {
+    "officialLanguage": "Portuguese",
+    "region": "Brazil",
+    "nativeOfficialLanguage": "Português",
+    "nativeRegion": "Brasil",
+    "ISO6391": "pt",
+    "ISO6392": "por",
+    "ISO31661Alpha2": "BR",
+    "ISO31661Alpha3": "BRA",
+    "IETFLanguageTag": "pt-BR"
+  },
+  {
+    "officialLanguage": "Portuguese",
+    "region": "Portugal",
+    "nativeOfficialLanguage": "Português",
+    "nativeRegion": "Portugal",
+    "ISO6391": "pt",
+    "ISO6392": "por",
+    "ISO31661Alpha2": "PT",
+    "ISO31661Alpha3": "PRT",
+    "IETFLanguageTag": "pt-PT"
+  }
+]
+```
+
+</details>
+
+> You can play with this on the [playground](https://marcelovicentegc.github.io/i18n-iso-languages)
 
 ### Getters
 
@@ -175,40 +432,50 @@ const locales = getLocaleByIETFLanguageTag([
 ]);
 
 console.log(locales);
-// [{
-//  officialLanguage: 'English',
-//  region: 'United States',
-//  nativeOfficialLanguage: 'English',
-//  nativeRegion: 'United States',
-//  ISO6391: 'en',
-//  ISO6392: 'eng',
-//  ISO31661Alpha2: 'US',
-//  ISO31661Alpha3: 'USA',
-//  IETFLanguageTag: 'en-US'
-// },
-// {
-//  officialLanguage: 'Portuguese',
-//  region: 'Brazil',
-//  nativeOfficialLanguage: 'Português',
-//  nativeRegion: 'Brasil',
-//  ISO6391: 'pt',
-//  ISO6392: 'por',
-//  ISO31661Alpha2: 'BR',
-//  ISO31661Alpha3: 'BRA',
-//  IETFLanguageTag: 'pt-BR'
-// },
-// {
-//  officialLanguage: 'Portuguese',
-//  region: 'Portugal',
-//  nativeOfficialLanguage: 'Português',
-//  nativeRegion: 'Portugal',
-//  ISO6391: 'pt',
-//  ISO6392: 'por',
-//  ISO31661Alpha2: 'PT',
-//  ISO31661Alpha3: 'PRT',
-//  IETFLanguageTag: 'pt-PT'
-// }]
 ```
+
+<details>
+  <summary>Click here to see what the `console.log` above outputs 👀</summary>
+
+```json
+[
+  {
+    "officialLanguage": "English",
+    "region": "United States",
+    "nativeOfficialLanguage": "English",
+    "nativeRegion": "United States",
+    "ISO6391": "en",
+    "ISO6392": "eng",
+    "ISO31661Alpha2": "US",
+    "ISO31661Alpha3": "USA",
+    "IETFLanguageTag": "en-US"
+  },
+  {
+    "officialLanguage": "Portuguese",
+    "region": "Brazil",
+    "nativeOfficialLanguage": "Português",
+    "nativeRegion": "Brasil",
+    "ISO6391": "pt",
+    "ISO6392": "por",
+    "ISO31661Alpha2": "BR",
+    "ISO31661Alpha3": "BRA",
+    "IETFLanguageTag": "pt-BR"
+  },
+  {
+    "officialLanguage": "Portuguese",
+    "region": "Portugal",
+    "nativeOfficialLanguage": "Português",
+    "nativeRegion": "Portugal",
+    "ISO6391": "pt",
+    "ISO6392": "por",
+    "ISO31661Alpha2": "PT",
+    "ISO31661Alpha3": "PRT",
+    "IETFLanguageTag": "pt-PT"
+  }
+]
+```
+
+</details>
 
 #### getLocalesByOfficialLanguage
 
