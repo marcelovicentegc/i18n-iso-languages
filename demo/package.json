@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "next dev",
-    "build": "next export",
+    "build": "next build",
+    "build:static": "next export",
     "start": "next start"
   },
   "dependencies": {
