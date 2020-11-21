@@ -2,6 +2,8 @@
 
 [![npm version](https://badge.fury.io/js/%40marcelovicentegc%2Fi18n-iso-languages.svg)](https://badge.fury.io/js/%40marcelovicentegc%2Fi18n-iso-languages)
 
+[![Playground](https://img.shields.io/badge/-playground-success)](https://marcelovicentegc.github.io/i18n-iso-languages)
+
 ## Installation
 
 > yarn add @marcelovicentegc/i18n-iso-languages
@@ -13,9 +15,29 @@
 | ISO standard             | Support |
 | ------------------------ | ------- |
 | ISO 639-1                | ✔️      |
+| ISO 639-2                | ✔️      |
 | ISO 3166-1 Alpha 2       | ✔️      |
 | ISO 3166-1 Alpha 3       | ✔️      |
 | IETF BCP 47 language tag | ✔️      |
+
+## Language support
+
+| Language                                     | Support |
+| -------------------------------------------- | ------- |
+| English (U.S.A., G.B.)                       | ✔️      |
+| Chinese (Standard)                           | ✔️      |
+| Hindi                                        | ✔️      |
+| Spanish (Mexico, Colombia, Spain, Argentina) | ✔️      |
+| French (France)                              | ✔️      |
+| Arabic (Egypt, Standard, U.A.E.)             | ✔️      |
+| Bengali                                      | ✔️      |
+| Russian                                      | ✔️      |
+| Portuguese (Brazil, Portugal)                | ✔️      |
+| Indonesian                                   | ✔️      |
+| Urdu                                         | ✔️      |
+| German (Germany, Austria)                    | ✔️      |
+| Italian                                      | ✔️      |
+| Catalan (Andorra)                            | ✔️      |
 
 ## Usage
 

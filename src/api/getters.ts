@@ -50,7 +50,8 @@ export
  * //  region: 'United States',
  * //  nativeOfficialLanguage: 'English',
  * //  nativeRegion: 'United States',
- * //  ISO6391: 'us',
+ * //  ISO6391: 'en',
+ * //  ISO6392: 'eng',
  * //  ISO31661Alpha2: 'US',
  * //  ISO31661Alpha3: 'USA',
  * //  IETFLanguageTag: 'en-US'
@@ -60,7 +61,8 @@ export
  * //  region: 'Brazil',
  * //  nativeOfficialLanguage: 'Português',
  * //  nativeRegion: 'Brasil',
- * //  ISO6391: 'br',
+ * //  ISO6391: 'pt',
+ * //  ISO6392: 'por',
  * //  ISO31661Alpha2: 'BR',
  * //  ISO31661Alpha3: 'BRA',
  * //  IETFLanguageTag: 'pt-BR'
@@ -71,6 +73,7 @@ export
  * //  nativeOfficialLanguage: 'Português',
  * //  nativeRegion: 'Portugal',
  * //  ISO6391: 'pt',
+ * //  ISO6392: 'por',
  * //  ISO31661Alpha2: 'PT',
  * //  ISO31661Alpha3: 'PRT',
  * //  IETFLanguageTag: 'pt-PT'

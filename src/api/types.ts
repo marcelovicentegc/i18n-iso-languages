@@ -14,6 +14,16 @@ export interface Locale {
    */
   ISO6391: string;
   /**
+   * ISO 639-2:1998, Codes for the representation of names of languages
+   * Part 2: Alpha-3 code, is the second part of the ISO 639 standard,
+   * which lists codes for the representation of the names of languages.
+   * The three-letter codes given for each language in this part of the standard are referred to as "Alpha-3" codes.
+   * There are 487 entries in the list of ISO 639-2 codes.
+   *
+   * For more information, see https://en.wikipedia.org/wiki/ISO_639-2 and https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes
+   */
+  ISO6392: string;
+  /**
    * ISO 3166-1 alpha-2 codes are two-letter country codes defined in ISO 3166-1,
    * part of the ISO 3166 standard published by the International Organization for Standardization (ISO),
    * to represent countries, dependent territories, and special areas of geographical interest.
