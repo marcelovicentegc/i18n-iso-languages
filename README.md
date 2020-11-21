@@ -2,7 +2,9 @@
 
 [![npm version](https://badge.fury.io/js/%40marcelovicentegc%2Fi18n-iso-languages.svg)](https://badge.fury.io/js/%40marcelovicentegc%2Fi18n-iso-languages)
 
-[![Playground](https://img.shields.io/badge/-playground-success)](https://marcelovicentegc.github.io/i18n-iso-languages)
+[![Playground](https://img.shields.io/badge/-Play%20with%20it%20%20on%20it's%20playground!-success)](https://marcelovicentegc.github.io/i18n-iso-languages)
+
+Easy and flexible localization library based on the ISO language set standards.
 
 ## Installation
 
@@ -41,17 +43,20 @@
 
 ## Usage
 
-### Configuration
+### configure
 
-#### configure
+You should use this method if you're willing to override some default behavior, specifically the locales made available and the default locale to be used as a fallback.
 
-> You can see this in action on the [demo](https://marcelovicentegc.github.io/i18n-iso-languages/)
+By default, every locale on this library is made available by the `getLocales` method, and the default language set as fallback is English.
 
-If you want to define a subset of the locales to be used on your project, you can use `cofigure` along with `getLocales`.
+🛑 **IMPORTANT**: You must import the `configure` method on the file that's first read.
 
-You must import the `configure` method on the file that's first read. _This method was heavily inspired by MobX's implementation._
+#### localesSubset
 
+If you want to define a subset of the locales to be used on your project, you can do this via the `localesSubset` attribute.
 It's usage is simple and straight forward. You just need to create a list with the locales you want to be used by a specific keyword.
+
+**Note**: If you don't define a locales subset, every locale defined on this lib will be used.
 
 The following keywords are available:
 
@@ -87,7 +92,7 @@ console.log(JSON.stringify(locales));
 ```
 
 <details>
-  <summary>Click here to see what the `console.log` above outputs 👀</summary>
+  <summary>Click here to see what the <code>console.log</code> above outputs 👀</summary>
 
 ```json
 [
@@ -160,7 +165,7 @@ console.log(JSON.stringify(locales));
 ```
 
 <details>
-  <summary>Click here to see what the `console.log` above outputs 👀</summary>
+  <summary>Click here to see what the <code>console.log</code> above outputs 👀</summary>
 
 ```json
 [
@@ -222,7 +227,7 @@ console.log(JSON.stringify(locales));
 ```
 
 <details>
-  <summary>Click here to see what the `console.log` above outputs 👀</summary>
+  <summary>Click here to see what the <code>console.log</code> above outputs 👀</summary>
 
 ```json
 [
@@ -317,7 +322,7 @@ console.log(JSON.stringify(locales));
 ```
 
 <details>
-  <summary>Click here to see what the `console.log` above outputs 👀</summary>
+  <summary>Click here to see what the <code>console.log</code> above outputs 👀</summary>
 
 ```json
 [
@@ -381,13 +386,9 @@ console.log(JSON.stringify(locales));
 
 </details>
 
-> You can play with this on the [playground](https://marcelovicentegc.github.io/i18n-iso-languages)
+### getLocaleByIETFLanguageTag
 
-### Getters
-
-#### getLocaleByIETFLanguageTag
-
-Get locale object by IETF language tag.
+Get a single or multiple locale objects by IETF language tag.
 
 ```tsx
 import { getLocaleByIETFLanguageTag } from `@marcelovicentegc/i18n-iso-languages`;
@@ -435,7 +436,7 @@ console.log(locales);
 ```
 
 <details>
-  <summary>Click here to see what the `console.log` above outputs 👀</summary>
+  <summary>Click here to see what the <code>console.log</code> above outputs 👀</summary>
 
 ```json
 [
@@ -477,7 +478,7 @@ console.log(locales);
 
 </details>
 
-#### getLocalesByOfficialLanguage
+### getLocalesByOfficialLanguage
 
 Get locales object by official language.
 
@@ -508,8 +509,12 @@ if (locales.length) {
     }
   );
 }
-// Output:
+```
 
+<details>
+  <summary>Click here to see what the <code>console.log</code> above outputs 👀</summary>
+
+```ts
 // Brazil
 // Português
 // Brasil
@@ -528,3 +533,5 @@ if (locales.length) {
 // PRT
 // pt-PT
 ```
+
+</details>
