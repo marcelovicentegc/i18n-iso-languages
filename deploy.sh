@@ -1,3 +1,4 @@
+NODE_ENV=production
 cd demo
 yarn build 
 yarn build:static
