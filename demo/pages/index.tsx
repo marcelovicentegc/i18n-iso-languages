@@ -22,7 +22,7 @@ const configure = (options: ConfigOptions) => {
 };
 
 const defaultLookupKey: LocaleKey = "IETFLanguageTag";
-const defaultLocales = ["en-US", "pt-BR", "it-IT", "es-AR"];
+const defaultLocales = ["pt-BR", "en-US", "zh-CN", "es-MX", "hi-IN"];
 const localesConfigPlaceholder: Array<ConfigOptions> = [
   {
     localesSubset: {
@@ -33,55 +33,61 @@ const localesConfigPlaceholder: Array<ConfigOptions> = [
   {
     localesSubset: {
       lookupKey: "ISO31661Alpha2",
-      locales: ["EN", "PT"],
+      locales: ["PT", "US", "CH", "MX", "IN"],
     },
   },
   {
     localesSubset: {
       lookupKey: "ISO31661Alpha3",
-      locales: ["MEX", "BRA", "CHN"],
+      locales: ["BRA", "USA", "CHN", "MEX", "IND"],
     },
   },
   {
     localesSubset: {
       lookupKey: "ISO6391",
-      locales: ["de", "en", "pt"],
+      locales: ["pt", "en", "zh", "es", "hi"],
     },
   },
   {
     localesSubset: {
       lookupKey: "ISO6392",
-      locales: ["spa", "arb"],
+      locales: ["por", "eng", "zho", "spa", "hin"],
     },
   },
   {
     localesSubset: {
       lookupKey: "officialLanguage",
-      locales: ["Portuguese", "English", "Chinese"],
+      locales: ["Portuguese", "English", "Chinese", "Spanish", "Hindi"],
     },
   },
   {
     localesSubset: {
       lookupKey: "nativeOfficialLanguage",
-      locales: ["Português", "English", "中文"],
+      locales: ["Português", "English", "中文", "Español", "हिन्दी"],
     },
   },
   {
     localesSubset: {
       lookupKey: "region",
-      locales: ["Germany", "India"],
+      locales: ["Brazil", "United Kingdom", "China", "Mexico", "India"],
     },
   },
   {
     localesSubset: {
       lookupKey: "nativeRegion",
-      locales: ["Deutschland", "भारत गणराज्य"],
+      locales: [
+        "Brasil",
+        "United Kingdom",
+        "中华人民共和国",
+        "México",
+        "भारत गणराज्य",
+      ],
     },
   },
 ];
 const defaultMultipleByOfficialLanguage = ["Portuguese", "German"];
-const defaultMultipleLocalesByLanguageTagQuery = ["en-US", "de-DE"];
-const defaultSingleLocaleByLanguageTagQuery = "bn-BD";
+const defaultMultipleLocalesByLanguageTagQuery = ["en-US", "es-MX"];
+const defaultSingleLocaleByLanguageTagQuery = "hi-IN";
 
 configure({
   localesSubset: {
@@ -154,7 +160,7 @@ export default function Home() {
         <div className="grid">
           <div className="card">
             <h3>configure</h3>
-            <h5>lookup key</h5>
+            <h4>lookup key</h4>
             <Select
               options={options}
               defaultValue={options[0]}
@@ -169,7 +175,7 @@ export default function Home() {
                 setDemoLocalesPlaceholder(config);
               }}
             />
-            <h5>locales</h5>
+            <h4>locales</h4>
             <input
               placeholder={demoLocalesPlaceholder.localesSubset.locales.join(
                 ","
