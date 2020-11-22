@@ -12,7 +12,7 @@ export let globalConfiguration: i18nISOLanguageGlobals = (() => {
 
 interface GetterParams {
   key: LocaleKey;
-  possibleMatch: string;
+  possibleMatch: string | string[];
   tryFallback?: boolean;
 }
 
@@ -20,11 +20,25 @@ export function get({
   key,
   possibleMatch,
   tryFallback = false,
-}: GetterParams): Locale | undefined {
+}: GetterParams): Locale[] | Locale | undefined {
   const subset = globalConfiguration.localesSubset;
   let fallback: Locale | undefined = undefined;
+  const useSubset = Boolean(subset.length);
 
-  if (subset.length) {
+  if (Array.isArray(possibleMatch)) {
+    const possibleMatches = possibleMatch;
+    return possibleMatches
+      .map((possibleMatch) => {
+        if (useSubset) {
+          return subset.find((locale) => locale[key] === possibleMatch);
+        }
+
+        return locales.find((locale) => locale[key] === possibleMatch);
+      })
+      .filter((locale) => locale !== undefined) as Locale[];
+  }
+
+  if (useSubset) {
     const match = subset.find((locale) => locale[key] === possibleMatch);
 
     if (tryFallback) {

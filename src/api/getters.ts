@@ -1,9 +1,9 @@
 import { query, get, globalConfiguration } from "../core/internal";
 import { locales } from "./locales";
-import { Locale, Options } from "./types";
+import { Options } from "./types";
 
 /**
- * Get locale object by IETF language tag.
+ * Get a single or multiple locale objects by IETF language tag.
  *
  * An IETF BCP 47 language tag is a code to identify human languages.
  * For example, the tag `en` stands for English; `es-419` for Latin American Spanish;
@@ -16,82 +16,20 @@ import { Locale, Options } from "./types";
  *
  * Language subtag registry: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
  *
- * ## @example
+ * ### @example
  * ```tsx
- * import { getLocaleByIETFLanguageTag } from `@marcelovicentegc/i18n-iso-languages`
+ * import { getLocaleByIETFLanguageTag, Locale } from `@marcelovicentegc/i18n-iso-languages`
  *
- * const locale = getLocaleByIETFLanguageTag("pt-BR")
+ * const locale: Locale | undefined = getLocaleByIETFLanguageTag("pt-BR")
+ * const locales: Locale[] = getLocaleByIETFLanguageTag(["pt-BR", "pt-PT"])
  *
- * if (locale) {
- *  const { officialLanguage, region, nativeOfficialLanguage, nativeRegion, ISO31661Alpha2, ISO31661Alpha3 } = locale
- *  console.log(officialLanguage)export { locales } from "./api/locales";
-export { Locale } from "./api/types";
-export { configure } from "./api/configure";
-
-export 
- *  // Portuguese
- *  console.log(region)
- *  // Brazil
- *  console.log(nativeOfficialLanguage)
- *  // Português
- *  console.log(nativeRegion)
- *  // Brasil
- *  console.log(ISO31661Alpha2)
- *  // BR
- *  console.log(ISO31661Alpha3)
- *  // BRA
- * }
- *
- * const locales = getLocaleByIETFLanguageTag(["pt-BR", "pt-PT", "en-US", "non-existent-tag", "another-non-existent-tag"])
- *
- * console.log(locales)
- * // [{
- * //  officialLanguage: 'English',
- * //  region: 'United States',
- * //  nativeOfficialLanguage: 'English',
- * //  nativeRegion: 'United States',
- * //  ISO6391: 'en',
- * //  ISO6392: 'eng',
- * //  ISO31661Alpha2: 'US',
- * //  ISO31661Alpha3: 'USA',
- * //  IETFLanguageTag: 'en-US'
- * // },
- * // {
- * //  officialLanguage: 'Portuguese',
- * //  region: 'Brazil',
- * //  nativeOfficialLanguage: 'Português',
- * //  nativeRegion: 'Brasil',
- * //  ISO6391: 'pt',
- * //  ISO6392: 'por',
- * //  ISO31661Alpha2: 'BR',
- * //  ISO31661Alpha3: 'BRA',
- * //  IETFLanguageTag: 'pt-BR'
- * // },
- * // {
- * //  officialLanguage: 'Portuguese',
- * //  region: 'Portugal',
- * //  nativeOfficialLanguage: 'Português',
- * //  nativeRegion: 'Portugal',
- * //  ISO6391: 'pt',
- * //  ISO6392: 'por',
- * //  ISO31661Alpha2: 'PT',
- * //  ISO31661Alpha3: 'PRT',
- * //  IETFLanguageTag: 'pt-PT'
- * // }]
+ * const localeFromFallback: Locale = getLocaleByIETFLanguageTag("non-existent-tag", { tryFallback: true })
  * ```
  */
 export function getLocaleByIETFLanguageTag(
   tag: string | string[],
   options?: Options
 ) {
-  if (Array.isArray(tag)) {
-    return tag
-      .map((languageTag) =>
-        locales.find(({ IETFLanguageTag }) => IETFLanguageTag === languageTag)
-      )
-      .filter((locale) => locale !== undefined) as Locale[];
-  }
-
   return get({
     key: "IETFLanguageTag",
     possibleMatch: tag,
@@ -100,47 +38,13 @@ export function getLocaleByIETFLanguageTag(
 }
 
 /**
- * Get locales object by official language.
+ * Get an array of locales objects by official language.
  *
- * ## @example
+ * ### @example
  * ```tsx
  * import { getLocalesByOfficialLanguage } from `@marcelovicentegc/i18n-iso-languages`
  *
- * const locales = getLocalesByOfficialLanguage("portuguese")
- *
- * if (locales.length) {
- *  locales.forEach(({
- *    region,
- *    nativeOfficialLanguage,
- *    nativeRegion,
- *    ISO31661Alpha2,
- *    ISO31661Alpha3,
- *    IETFLanguageTag
- *   }) => {
- *    console.log(region)
- *    console.log(nativeOfficialLanguage)
- *    console.log(nativeRegion)
- *    console.log(ISO31661Alpha2)
- *    console.log(ISO31661Alpha3)
- *    console.log(IETFLanguageTag)
- *  })
- * }
- *
- * // Output:
- *
- * // Brazil
- * // Português
- * // Brasil
- * // BR
- * // BRA
- * // pt-BR
- *
- * // Portugal
- * // Português
- * // Portugal
- * // PT
- * // PRT
- * // pt-PT
+ * const locales = getLocalesByOfficialLanguage("Portuguese")
  * ```
  */
 export function getLocalesByOfficialLanguage(
@@ -154,7 +58,10 @@ export function getLocalesByOfficialLanguage(
   });
 }
 
-export function getLocaleByRegion(region: string, options?: Options) {
+export function getLocaleByRegion(
+  region: string | string[],
+  options?: Options
+) {
   return get({
     key: "region",
     possibleMatch: region,
@@ -163,7 +70,7 @@ export function getLocaleByRegion(region: string, options?: Options) {
 }
 
 export function getLocaleByISO3166Alpha2(
-  countryCode: string,
+  countryCode: string | string[],
   options?: Options
 ) {
   return get({
