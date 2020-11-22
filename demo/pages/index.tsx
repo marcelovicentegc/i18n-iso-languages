@@ -123,12 +123,13 @@ export default function Home() {
 
       <main>
         <h1 className="title">i18n-iso-languages</h1>
-
-        <p className="description">
-          Get started by adding it to your project{" "}
-          <code>yarn add @marcelovicentegc/i18n-iso-languages</code>
-        </p>
-
+        <p className="description">Get started by adding it to your project </p>
+        <div className="codeBlockContainer">
+          <CodeBlock>
+            yarn add @marcelovicentegc/i18n-iso-languages <br />
+            npm i @marcelovicentegc/i18n-iso-language
+          </CodeBlock>
+        </div>
         <div className="grid">
           <div className="card">
             <h3>configure</h3>
@@ -313,15 +314,6 @@ locales.map((locale) => {
           font-size: 1.5rem;
         }
 
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
         .grid {
           display: flex;
           align-items: flex-start;
@@ -330,6 +322,10 @@ locales.map((locale) => {
 
           max-width: 1260px;
           margin-top: 3rem;
+        }
+
+        .codeBlockContainer {
+          max-width: calc(100vw - 2.5rem);
         }
 
         .card {
@@ -375,15 +371,15 @@ locales.map((locale) => {
         .card button:focus,
         .card button:hover {
           outline: none;
-          border: 1px solid #2684ff;
-          box-shadow: 0 0 0 1px #2684ff;
+          border: 1px solid var(--blue);
+          box-shadow: 0 0 0 1px var(--blue);
         }
 
         .card button:active {
           outline: none;
-          border: 1px solid #2684ff;
-          box-shadow: 0 0 0 1px #2684ff;
-          background-color: #2684ff;
+          border: 1px solid var(--blue);
+          box-shadow: 0 0 0 1px var(--blue);
+          background-color: var(--blue);
           color: #fff;
         }
 
@@ -411,8 +407,20 @@ locales.map((locale) => {
 
         @media (max-width: 600px) {
           .grid {
-            width: 100%;
+            width: calc(100vw - 2.5rem);
             flex-direction: column;
+          }
+
+          .card {
+            width: calc(100% - 1.5rem);
+          }
+
+          .title {
+            font-size: 3rem;
+          }
+
+          .description {
+            font-size: 1rem;
           }
         }
       `}</style>
@@ -422,6 +430,7 @@ locales.map((locale) => {
         body {
           --scrollbarBG: #fff;
           --thumbBG: #000;
+          --blue: #2684ff;
 
           scrollbar-width: thin;
           scrollbar-color: var(--thumbBG) var(--scrollbarBG);
