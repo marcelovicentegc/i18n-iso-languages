@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.7.0] - 11/21/2020
+
+### Added
+
+- Batch search on internal `get` method.
+
+### Changed
+
+- Improved jsDocs for `getLocaleByIETFLanguageTag` and `getLocalesByOfficialLanguage` methods by making them less verbose.
+
 ## [0.6.0] - 11/21/2020
 
 ### Added
