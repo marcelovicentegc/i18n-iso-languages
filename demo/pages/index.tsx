@@ -6,6 +6,8 @@ import {
   configure as conf,
   getLocales,
   LocaleKey,
+  getLocaleByIETFLanguageTag,
+  Locale,
 } from "@marcelovicentegc/i18n-iso-languages";
 
 interface ConfigOptions {
@@ -77,6 +79,9 @@ const localesConfigPlaceholder: Array<ConfigOptions> = [
     },
   },
 ];
+const defaultMultipleByOfficialLanguage = ["Portuguese", "German"];
+const defaultMultipleLocalesByLanguageTagQuery = ["en-US", "de-DE"];
+const defaultSingleLocaleByLanguageTagQuery = "bn-BD";
 
 configure({
   localesSubset: {
@@ -86,7 +91,6 @@ configure({
 });
 
 export default function Home() {
-  const locales = getLocales();
   const [demoLookupKey, setDemoLookupKey] = useState<LocaleKey>(
     "IETFLanguageTag"
   );
@@ -101,6 +105,23 @@ export default function Home() {
     demoLocalesPlaceholder,
     setDemoLocalesPlaceholder,
   ] = useState<ConfigOptions>(localesConfigPlaceholder[0]);
+  const [
+    multipleLocalesByLanguageTagQuery,
+    setMultipleLocalesByLanguageTagQuery,
+  ] = useState(defaultMultipleLocalesByLanguageTagQuery);
+  const [
+    singleLocaleByLanguageTagQuery,
+    setSingleLocaleByLanguageTagQuery,
+  ] = useState(defaultSingleLocaleByLanguageTagQuery);
+  const [
+    singleLocaleByLanguageTag,
+    setSingleLocaleByLanguageTag,
+  ] = useState<Locale>();
+  const [
+    multipleLocalesByLanguageTag,
+    setMultipleLocalesByLanguageTag,
+  ] = useState<Locale[]>([]);
+  const [localesByGetLocales, setLocalesByGetLocales] = useState<Locale[]>([]);
 
   const options: { value: LocaleKey; label: string }[] = [
     { value: "IETFLanguageTag", label: "IETF language tag" },
@@ -158,20 +179,6 @@ export default function Home() {
                 setFutureDemoLocales(event.target.value.split(","))
               }
             />
-            <button
-              onClick={() => {
-                configure({
-                  localesSubset: {
-                    lookupKey: futureDemoLookupKey,
-                    locales: futureDemoLocales,
-                  },
-                });
-                setDemoLookupKey(futureDemoLookupKey);
-                setDemoLocales(futureDemoLocales);
-              }}
-            >
-              Reconfigure
-            </button>
             <div className="separator" />
             <CodeBlock>
               {`
@@ -185,7 +192,22 @@ configure({
 })
               `}
             </CodeBlock>
+            <button
+              onClick={() => {
+                configure({
+                  localesSubset: {
+                    lookupKey: futureDemoLookupKey,
+                    locales: futureDemoLocales,
+                  },
+                });
+                setDemoLookupKey(futureDemoLookupKey);
+                setDemoLocales(futureDemoLocales);
+              }}
+            >
+              Run the code above ☝️
+            </button>
           </div>
+
           <div className="card">
             <h3>getLocales</h3>
             <CodeBlock>
@@ -213,23 +235,162 @@ locales.map((locale) => {
 })
               `}
             </CodeBlock>
-            {locales.map((locale, index) => {
-              return (
-                <Fragment key={index}>
+            <button
+              onClick={() => {
+                const locales = getLocales();
+                setLocalesByGetLocales(locales);
+              }}
+            >
+              Run the code above ☝️
+            </button>
+            {localesByGetLocales.length > 0 && (
+              <>
+                <div className="separator" />
+                <details>
+                  <summary>Result</summary>
+                  {localesByGetLocales.map((locale, index) => {
+                    return (
+                      <Fragment key={index}>
+                        <div className="separator" />
+                        <p>Official language: {locale.officialLanguage}</p>
+                        <p>
+                          Native official language:{" "}
+                          {locale.nativeOfficialLanguage}
+                        </p>
+                        <p>Region: {locale.region}</p>
+                        <p>Native region: {locale.nativeRegion}</p>
+                        <p>ISO 639-1: {locale.ISO6391}</p>
+                        <p>ISO 3166-1 alpha-2: {locale.ISO31661Alpha2}</p>
+                        <p>ISO 3166-1 alpha-3: {locale.ISO31661Alpha3}</p>
+                        <p>IETFL language tag: {locale.IETFLanguageTag}</p>
+                      </Fragment>
+                    );
+                  })}
+                </details>
+              </>
+            )}
+          </div>
+          <div className="card">
+            <h3>getLocaleByIETFLanguageTag</h3>
+            <h4>
+              You can get a single locale by language tag by providing a single
+              language tag...
+            </h4>
+            <input
+              placeholder={defaultSingleLocaleByLanguageTagQuery}
+              value={singleLocaleByLanguageTagQuery}
+              onChange={(event) =>
+                setSingleLocaleByLanguageTagQuery(event.target.value)
+              }
+            />
+            <div className="separator" />
+            <CodeBlock>
+              {`
+import { getLocaleByIETFLanguageTag, Locale } from '@marcelovicentegc/i18n-iso-languages'
+              
+const locale = getLocaleByIETFLanguageTag('${singleLocaleByLanguageTagQuery}') as Locale
+              `}
+            </CodeBlock>
+            <button
+              onClick={() => {
+                const locale = getLocaleByIETFLanguageTag(
+                  singleLocaleByLanguageTagQuery
+                ) as Locale;
+
+                console.log(locale);
+
+                setSingleLocaleByLanguageTag(locale);
+              }}
+            >
+              Run the code above ☝️
+            </button>
+            {singleLocaleByLanguageTag && (
+              <>
+                <div className="separator" />
+                <details>
+                  <summary>Result</summary>
                   <div className="separator" />
-                  <p>Official language: {locale.officialLanguage}</p>
                   <p>
-                    Native official language: {locale.nativeOfficialLanguage}
+                    Official language:{" "}
+                    {singleLocaleByLanguageTag.officialLanguage}
                   </p>
-                  <p>Region: {locale.region}</p>
-                  <p>Native region: {locale.nativeRegion}</p>
-                  <p>ISO 639-1: {locale.ISO6391}</p>
-                  <p>ISO 3166-1 alpha-2: {locale.ISO31661Alpha2}</p>
-                  <p>ISO 3166-1 alpha-3: {locale.ISO31661Alpha3}</p>
-                  <p>IETFL language tag: {locale.IETFLanguageTag}</p>
-                </Fragment>
-              );
-            })}
+                  <p>
+                    Native official language:{" "}
+                    {singleLocaleByLanguageTag.nativeOfficialLanguage}
+                  </p>
+                  <p>Region: {singleLocaleByLanguageTag.region}</p>
+                  <p>Native region: {singleLocaleByLanguageTag.nativeRegion}</p>
+                  <p>ISO 639-1: {singleLocaleByLanguageTag.ISO6391}</p>
+                  <p>
+                    ISO 3166-1 alpha-2:{" "}
+                    {singleLocaleByLanguageTag.ISO31661Alpha2}
+                  </p>
+                  <p>
+                    ISO 3166-1 alpha-3:{" "}
+                    {singleLocaleByLanguageTag.ISO31661Alpha3}
+                  </p>
+                  <p>
+                    IETFL language tag:{" "}
+                    {singleLocaleByLanguageTag.IETFLanguageTag}
+                  </p>
+                </details>
+              </>
+            )}
+
+            <h4>
+              Or you can get multiple by providing multiple language tags!
+            </h4>
+            <input
+              placeholder={defaultMultipleLocalesByLanguageTagQuery.join(",")}
+              value={multipleLocalesByLanguageTagQuery.join()}
+              onChange={(event) =>
+                setMultipleLocalesByLanguageTagQuery(
+                  event.target.value.split(",")
+                )
+              }
+            />
+            <div className="separator" />
+            <CodeBlock>
+              {`
+import { getLocaleByIETFLanguageTag, Locale } from '@marcelovicentegc/i18n-iso-languages'
+              
+const locales = getLocaleByIETFLanguageTag([${multipleLocalesByLanguageTagQuery.map(
+                (locale) => `'${locale}'`
+              )}]) as Locale[]
+              `}
+            </CodeBlock>
+            <button
+              onClick={() => {
+                const locales = getLocaleByIETFLanguageTag(
+                  multipleLocalesByLanguageTagQuery
+                ) as Locale[];
+
+                setMultipleLocalesByLanguageTag(locales);
+              }}
+            >
+              Run the code above ☝️
+            </button>
+            <div className="separator" />
+            <details>
+              <summary>Result</summary>
+              {multipleLocalesByLanguageTag.map((locale, index) => {
+                return (
+                  <Fragment key={index}>
+                    <div className="separator" />
+                    <p>Official language: {locale.officialLanguage}</p>
+                    <p>
+                      Native official language: {locale.nativeOfficialLanguage}
+                    </p>
+                    <p>Region: {locale.region}</p>
+                    <p>Native region: {locale.nativeRegion}</p>
+                    <p>ISO 639-1: {locale.ISO6391}</p>
+                    <p>ISO 3166-1 alpha-2: {locale.ISO31661Alpha2}</p>
+                    <p>ISO 3166-1 alpha-3: {locale.ISO31661Alpha3}</p>
+                    <p>IETFL language tag: {locale.IETFLanguageTag}</p>
+                  </Fragment>
+                );
+              })}
+            </details>
           </div>
         </div>
       </main>
@@ -331,6 +492,7 @@ locales.map((locale) => {
         .card {
           margin: 1rem;
           flex-basis: 30%;
+          max-width: 800px;
           padding: 1.5rem;
           text-align: left;
           color: inherit;
@@ -358,7 +520,6 @@ locales.map((locale) => {
         }
 
         .card button {
-          margin-top: 1.5rem;
           padding: 0.5rem;
           border-radius: 4px;
           background-color: #fff;

@@ -203,10 +203,10 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.1.0.tgz#6c9eafc78c1529248f8f4d92b0799a712b6052c6"
   integrity sha512-i9YbZPN3QgfighY/1X1Pu118VUz2Fmmhd6b2n0/O8YVgGGfw0FbUYoA97k7FkpGJ+pLCFEDLUmAPPV4D1kpeFw==
 
-"@marcelovicentegc/i18n-iso-languages@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@marcelovicentegc/i18n-iso-languages/-/i18n-iso-languages-0.6.0.tgz#eb9423a64e211c328892d3afcfa3a37a09b044e5"
-  integrity sha512-7pg6yQPEaoA8cm2wKuOhIPZQN6arP4hkjJMJf3Ab8nT38eXCIp/CsZBaeoOXPLUVYjNMelywql2aJbg9uPGt5A==
+"@marcelovicentegc/i18n-iso-languages@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@marcelovicentegc/i18n-iso-languages/-/i18n-iso-languages-0.7.0.tgz#e9b60a5622341588bc6fdfd3bca1e959f5bd8c56"
+  integrity sha512-eCK5OrPfiaPbLur1HA/fked9NER5ZrGu029fV/SMAc0RA9RN3kpJxgD177r2o1FHTYQOe8KNq/a3bj4AdJK6pA==
 
 "@next/env@10.0.2":
   version "10.0.2"
