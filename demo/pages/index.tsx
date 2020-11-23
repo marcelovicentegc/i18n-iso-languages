@@ -8,14 +8,12 @@ import {
   LocaleKey,
   getLocaleByIETFLanguageTag,
   Locale,
+  getLocalesByOfficialLanguage,
 } from "@marcelovicentegc/i18n-iso-languages";
-import { Result } from "../components/Result";
-import { Collapsible } from "../components/Collapsible";
-import { Separator } from "../components/Separator";
 import { ToastContainer, toast } from "react-toastify";
 import { Card } from "../components/Card";
-import "react-toastify/dist/ReactToastify.css";
 import { Input } from "../components/Input";
+import "react-toastify/dist/ReactToastify.css";
 
 interface ConfigOptions {
   localesSubset: {
@@ -92,8 +90,10 @@ const localesConfigPlaceholder: Array<ConfigOptions> = [
     },
   },
 ];
-const defaultMultipleLocalesByLanguageTagQuery = ["en-US", "es-MX"];
 const defaultSingleLocaleByLanguageTagQuery = "hi-IN";
+const defaultMultipleLocalesByLanguageTagQuery = ["en-US", "es-MX"];
+const defaultSingleLocaleByOfficialLanguageQuery = "Portuguese";
+const defaultMultipleLocalesByOfficialLanguageQuery = ["Portuguese", "Spanish"];
 
 configure({
   localesSubset: {
@@ -117,9 +117,18 @@ export default function Home() {
     setDisplayMultipleLocalesByLanguageTagResult,
   ] = useState(false);
   const [
+    displaySingleLocaleByOfficialLanguageResult,
+    setDisplaySingleLocaleByOfficialLanguageResult,
+  ] = useState(false);
+  const [
+    displayMultipleLocalesByOfficialLanguageResult,
+    setDisplayMultipleLocalesByOfficialLanguageResult,
+  ] = useState(false);
+  const [
     demoLocalesPlaceholder,
     setDemoLocalesPlaceholder,
   ] = useState<ConfigOptions>(localesConfigPlaceholder[0]);
+  const [localesByGetLocales, setLocalesByGetLocales] = useState<Locale[]>([]);
   const [
     multipleLocalesByLanguageTagQuery,
     setMultipleLocalesByLanguageTagQuery,
@@ -136,7 +145,22 @@ export default function Home() {
     multipleLocalesByLanguageTag,
     setMultipleLocalesByLanguageTag,
   ] = useState<Locale[]>([]);
-  const [localesByGetLocales, setLocalesByGetLocales] = useState<Locale[]>([]);
+  const [
+    multipleLocalesByOfficialLanguageQuery,
+    setMultipleLocalesByOfficialLanguageQuery,
+  ] = useState(defaultMultipleLocalesByOfficialLanguageQuery);
+  const [
+    singleLocaleByOfficialLanguageQuery,
+    setSingleLocaleByOfficialLanguageQuery,
+  ] = useState(defaultSingleLocaleByOfficialLanguageQuery);
+  const [
+    singleLocaleByOfficialLanguage,
+    setSingleLocaleByOfficialLanguage,
+  ] = useState<Locale[]>();
+  const [
+    multipleLocalesByOfficialLanguage,
+    setMultipleLocalesByOfficialLanguage,
+  ] = useState<Locale[]>([]);
 
   const options: { value: LocaleKey; label: string }[] = [
     { value: "IETFLanguageTag", label: "IETF language tag" },
@@ -211,6 +235,23 @@ export default function Home() {
     setDisplayMultipleLocalesByLanguageTagResult(true);
   };
 
+  const handleSingleLocaleByOfficialLanguage = () => {
+    const locales = getLocalesByOfficialLanguage(
+      singleLocaleByOfficialLanguageQuery
+    );
+
+    setSingleLocaleByOfficialLanguage(locales);
+    setDisplaySingleLocaleByOfficialLanguageResult(true);
+  };
+
+  const handleMultipleLocalesByOfficialLanguage = () => {
+    const locales = getLocalesByOfficialLanguage(
+      multipleLocalesByOfficialLanguageQuery
+    );
+    setMultipleLocalesByOfficialLanguage(locales);
+    setDisplayMultipleLocalesByOfficialLanguageResult(true);
+  };
+
   const configureCode = `
 import { configure } from '@marcelovicentegc/i18n-iso-languages'
                 
@@ -238,6 +279,7 @@ locales.map((locale) => {
     <p>Region: {locale.region}</p>
     <p>Native region: {locale.nativeRegion}</p>
     <p>ISO 639-1: {locale.ISO6391}</p>
+    <p>ISO 639-2: {locale.ISO6392}</p>
     <p>ISO 3166-1 alpha-2: {locale.ISO31661Alpha2}</p>
     <p>ISO 3166-1 alpha-3: {locale.ISO31661Alpha3}</p>
     <p>IETFL language tag: {locale.IETFLanguageTag}</p>
@@ -259,6 +301,19 @@ import { getLocaleByIETFLanguageTag, Locale } from '@marcelovicentegc/i18n-iso-l
 const locales = getLocaleByIETFLanguageTag([${multipleLocalesByLanguageTagQuery.map(
     (locale) => `'${locale}'`
   )}]) as Locale[]`;
+
+  const singleLocaleByOfficialLanguageCode = `
+import { getLocalesByOfficialLanguage, Locale } from '@marcelovicentegc/i18n-iso-languages'
+                
+const locales = getLocalseByOfficialLanguage('${singleLocaleByOfficialLanguageQuery}')
+                `;
+
+  const multipleLocalesByOfficialLanguageCode = `
+import { getLocalesByOfficialLanguage, Locale } from '@marcelovicentegc/i18n-iso-languages'
+                
+const locales = getLocalesByOfficialLanguage([${multipleLocalesByOfficialLanguageQuery.map(
+    (locale) => `'${locale}'`
+  )}])`;
 
   return (
     <div className="container">
@@ -389,6 +444,75 @@ const locales = getLocaleByIETFLanguageTag([${multipleLocalesByLanguageTagQuery.
                     event.preventDefault();
                     setDisplayMultipleLocalesByLanguageTagResult(
                       !displayMultipleLocalesByLanguageTagResult
+                    );
+                  },
+                },
+              },
+            ]}
+          />
+          <Card
+            title="getLocalesByOfficialLanguage"
+            sections={[
+              {
+                inputs: (
+                  <>
+                    <h4>
+                      You can get multiple locales by official language by
+                      providing a single official language...
+                    </h4>
+                    <Input
+                      placeholder={defaultSingleLocaleByOfficialLanguageQuery}
+                      value={singleLocaleByOfficialLanguageQuery}
+                      onChange={(event) => {
+                        setSingleLocaleByOfficialLanguageQuery(
+                          event.target.value
+                        );
+                      }}
+                    />
+                  </>
+                ),
+                code: singleLocaleByOfficialLanguageCode,
+                onClick: handleSingleLocaleByOfficialLanguage,
+                results: {
+                  data: singleLocaleByOfficialLanguage,
+                  display: displaySingleLocaleByOfficialLanguageResult,
+                  onToggle: (event) => {
+                    event.preventDefault();
+                    setDisplaySingleLocaleByOfficialLanguageResult(
+                      !displaySingleLocaleByOfficialLanguageResult
+                    );
+                  },
+                },
+              },
+              {
+                inputs: (
+                  <>
+                    <h4>
+                      Or you can get multiple by providing multiple official
+                      languages!
+                    </h4>
+                    <Input
+                      placeholder={defaultMultipleLocalesByOfficialLanguageQuery.join(
+                        ","
+                      )}
+                      value={multipleLocalesByOfficialLanguageQuery.join()}
+                      onChange={(event) => {
+                        setMultipleLocalesByOfficialLanguageQuery(
+                          event.target.value.split(",")
+                        );
+                      }}
+                    />
+                  </>
+                ),
+                code: multipleLocalesByOfficialLanguageCode,
+                onClick: handleMultipleLocalesByOfficialLanguage,
+                results: {
+                  data: multipleLocalesByOfficialLanguage,
+                  display: displayMultipleLocalesByOfficialLanguageResult,
+                  onToggle: (event) => {
+                    event.preventDefault();
+                    setDisplayMultipleLocalesByOfficialLanguageResult(
+                      !displayMultipleLocalesByOfficialLanguageResult
                     );
                   },
                 },

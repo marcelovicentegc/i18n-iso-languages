@@ -38,6 +38,10 @@ Easy and flexible localization library based on the ISO language set standards.
 | Indonesian                                   | ✔️      |
 | Urdu                                         | ✔️      |
 | German (Germany, Austria)                    | ✔️      |
+| Japanese                                     | ✔️      |
+| Korean (South Korea)                         | ✔️      |
+| Thai                                         | ✔️      |
+| Romanian (Romania)                           | ✔️      |
 | Italian                                      | ✔️      |
 | Catalan (Andorra)                            | ✔️      |
 
