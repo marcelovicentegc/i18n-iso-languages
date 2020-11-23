@@ -78,6 +78,32 @@ The `LocaleKey` type is a union type of the following keywords:
 
 #### Example usage
 
+**Configuring a locale fallback in case any of the methods find a given locale on it's locales set or subset**
+
+```tsx
+import { configure } from "@marcelovicentegc/i18n-iso-languages";
+
+configure({
+  defaultLocale: {
+    lookupKey: "ISO31661Alpha2",
+    locales: "RU",
+  },
+});
+
+// On other files...
+import { getLocaleByISO3166Alpha3 } from "@marcelovicentegc/i18n-iso-languages";
+
+// This returns undefined, as there is no such
+// NON-EXSITENT-CODE under the ISO 3166-1 alpha-3 standard,
+// and the tryFallback option is set to false by default.
+const maybeNonExistentCode = getLocaleByISO3166Alpha3("NON-EXISTENT-CODE");
+
+// This returns the russian locale.
+const fallback = getLocaleByISO3166Alpha3("NON-EXISTENT-CODE", {
+  tryFallback: true,
+});
+```
+
 **Configuring a subset of locales by the IETF language tag pattern**
 
 ```tsx
@@ -102,8 +128,10 @@ const locales = getLocales();
 // This is undefined because japanese locales are not included on the locales subset.
 const japaneseLocales = getLocaleByISO3166Alpha2("JP");
 
-// This returns the english (U.S.A.) locales as the japanese locales are not included on the locales subset BUT tryFallback was set to true.
-const maybeJapaneseLocales = getLocaleByiso3166Alpha2("JP", {
+// This returns the english (U.S.A.) locales as the
+// japanese locales are not included on the locales subset
+// BUT tryFallback is set to true.
+const maybeJapaneseLocales = getLocaleByISO3166Alpha2("JP", {
   tryFallback: true,
 });
 ```
