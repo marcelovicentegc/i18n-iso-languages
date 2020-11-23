@@ -2,7 +2,7 @@ import { locales } from "../api/locales";
 import { Locale, LocaleKey } from "../api/types";
 
 export class i18nISOLanguageGlobals {
-  defaultLocale: Locale | null = null;
+  defaultLocale: Locale = locales[0];
   localesSubset: Locale[] = [];
 }
 
@@ -16,18 +16,44 @@ interface GetterParams {
   tryFallback?: boolean;
 }
 
+function getFallback({ asArray = false }: { asArray?: boolean }) {
+  const { localesSubset: subset, defaultLocale } = globalConfiguration;
+  const useSubset = Boolean(subset.length);
+
+  if (useSubset) {
+    const subsetHasDefaultLocale = subset.includes(defaultLocale);
+
+    if (subsetHasDefaultLocale) {
+      if (asArray) {
+        return [defaultLocale];
+      }
+      return defaultLocale;
+    } else {
+      if (asArray) {
+        return [subset[0]];
+      }
+      return subset[0];
+    }
+  }
+
+  if (asArray) {
+    return [defaultLocale];
+  }
+  return defaultLocale;
+}
+
 export function get({
   key,
   possibleMatch,
   tryFallback = false,
 }: GetterParams): Locale[] | Locale | undefined {
   const subset = globalConfiguration.localesSubset;
-  let fallback: Locale | undefined = undefined;
+  const fallback = getFallback({ asArray: false }) as Locale;
   const useSubset = Boolean(subset.length);
 
   if (Array.isArray(possibleMatch)) {
     const possibleMatches = possibleMatch;
-    return possibleMatches
+    const match = possibleMatches
       .map((possibleMatch) => {
         if (useSubset) {
           return subset.find((locale) => locale[key] === possibleMatch);
@@ -36,20 +62,31 @@ export function get({
         return locales.find((locale) => locale[key] === possibleMatch);
       })
       .filter((locale) => locale !== undefined) as Locale[];
+
+    if (!match.length && tryFallback) {
+      return [fallback];
+    }
+
+    return match;
   }
 
   if (useSubset) {
     const match = subset.find((locale) => locale[key] === possibleMatch);
 
-    if (tryFallback) {
-      fallback = globalConfiguration.defaultLocale || subset[0];
+    if (!match && tryFallback) {
+      return fallback;
     }
 
-    return match ?? fallback;
+    return match;
   }
 
   const match = locales.find((locale) => locale[key] === possibleMatch);
-  return match ?? locales[0];
+
+  if (!match && tryFallback) {
+    return fallback;
+  }
+
+  return match;
 }
 
 export function getWithFallback({
@@ -64,30 +101,46 @@ export function query({
   possibleMatch,
   tryFallback = false,
 }: GetterParams) {
-  const subset = globalConfiguration.localesSubset;
-  let fallback: Locale | undefined = undefined;
+  const { localesSubset: subset } = globalConfiguration;
+  const fallback = getFallback({ asArray: true }) as Locale[];
+  const useSubset = Boolean(subset.length);
 
-  if (subset.length) {
+  if (Array.isArray(possibleMatch)) {
+    const possibleMatches = possibleMatch;
+    const match = possibleMatches
+      .map((possibleMatch) => {
+        if (useSubset) {
+          return subset.filter((locale) => locale[key] === possibleMatch);
+        }
+
+        return locales.filter((locale) => locale[key] === possibleMatch);
+      })
+      .reduce((acc, cur) => [...acc, ...cur]);
+
+    if (!match.length && tryFallback) {
+      return fallback;
+    }
+
+    return match;
+  }
+
+  if (useSubset) {
     const match = subset.filter((locale) => locale[key] === possibleMatch);
 
-    if (tryFallback) {
-      fallback = globalConfiguration.defaultLocale || subset[0];
+    if (!match.length && tryFallback) {
+      return fallback;
     }
 
-    if (match.length) {
-      return match;
-    } else {
-      return [fallback];
-    }
+    return match;
   }
 
   const match = locales.filter((locale) => locale[key] === possibleMatch);
 
-  if (match.length) {
-    return match;
-  } else {
-    return [locales[0]];
+  if (!match.length && tryFallback) {
+    return fallback;
   }
+
+  return match;
 }
 
 export function queryWithFallback({

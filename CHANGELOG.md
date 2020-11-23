@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.8.0] 12/21/2020
+
+### Added
+
+- Language support for:
+
+  - Japanese
+  - Korean (South Korea)
+  - Thai
+  - Romanian (Romania)
+
+- `getFallback` internal method.
+
+### Changed
+
+- Accept an array of official languages on `getLocalesByOfficialLanguage`.
+- Let the `query` internal method handle arrays.
+
+### Fixed
+
+- Default fallback setting.
+
 ## [0.7.0] - 11/21/2020
 
 ### Added

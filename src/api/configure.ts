@@ -19,7 +19,7 @@ export function configure(options: {
     const fallback = locales.find(
       (locale) => locale[lookupKey] === fallbackLocale
     );
-    globalConfiguration.defaultLocale = fallback ?? null;
+    globalConfiguration.defaultLocale = fallback ?? locales[0];
   }
 
   if (localesSubset) {

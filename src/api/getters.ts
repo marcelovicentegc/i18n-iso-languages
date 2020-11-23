@@ -48,7 +48,7 @@ export function getLocaleByIETFLanguageTag(
  * ```
  */
 export function getLocalesByOfficialLanguage(
-  language: string,
+  language: string | string[],
   options?: Options
 ) {
   return query({
