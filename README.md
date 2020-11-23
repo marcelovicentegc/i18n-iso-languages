@@ -1,8 +1,6 @@
 # @marcelovicentegc/i18n-iso-languages
 
-[![npm version](https://badge.fury.io/js/%40marcelovicentegc%2Fi18n-iso-languages.svg)](https://badge.fury.io/js/%40marcelovicentegc%2Fi18n-iso-languages)
-
-[![Playground](https://img.shields.io/badge/-Play%20with%20it%20%20on%20it's%20playground!-success)](https://marcelovicentegc.github.io/i18n-iso-languages)
+[![npm version](https://badge.fury.io/js/%40marcelovicentegc%2Fi18n-iso-languages.svg)](https://badge.fury.io/js/%40marcelovicentegc%2Fi18n-iso-languages) [![Playground](https://img.shields.io/badge/-Play%20with%20it%20%20on%20it's%20playground!-success)](https://marcelovicentegc.github.io/i18n-iso-languages)
 
 Easy and flexible localization library based on the ISO language set standards.
 
@@ -47,22 +45,26 @@ Easy and flexible localization library based on the ISO language set standards.
 
 ## Usage
 
+You can play with this package on it's [playground](https://marcelovicentegc.github.io/i18n-iso-languages/)
+
 ### configure
 
-You should use this method if you're willing to override some default behavior, specifically the locales made available and the default locale to be used as a fallback.
+You should use this method if you're willing to override some default behavior, specifically the locales made available and the default locale to be used as a fallback if any of the methods don't find the locales being queried.
 
 By default, every locale on this library is made available by the `getLocales` method, and the default language set as fallback is English.
 
 🛑 **IMPORTANT**: You must import the `configure` method on the file that's first read.
 
-#### localesSubset
+#### Parameters
 
-If you want to define a subset of the locales to be used on your project, you can do this via the `localesSubset` attribute.
-It's usage is simple and straight forward. You just need to create a list with the locales you want to be used by a specific keyword.
+| Parameter                  | Type                                          | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Defaults to                                                                                                            |
+| -------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `localesSubset` (optional) | `{ lookupKey: LocaleKey, locales: string[] }` | An object containing a lookup key and a list containing the strings of the subset you want to be used. The search will run against the strings by the lookup key. You can use this to limit the locales objects that should be exposed.                                                                                                                                                                                                                                                             | [Every locale object present on this package](https://github.com/marcelovicentegc/i18n-iso-languages#language-support) |
+| `defaultLocale` (optional) | `{ lookupKey: LocaleKey, locale: string }`    | An object containing a lookup key and a single string representing the default locale to be used when the `tryFallback` parameter is passed to any other method. The search will run against the string by the lookup key. You can use this to tell `i18n-iso-languages`: hey, if you don't find this locale for any reason, return X one instead. This is useful if you're interacting with third party services that might not always give you as input a valid ISO or language for your project. | The English (U.S.A.) locale                                                                                            |
 
-**Note**: If you don't define a locales subset, every locale defined on this lib will be used.
+**Note**: When you don't define a locales subset, every locale defined on this lib is used.
 
-The following keywords are available:
+The `LocaleKey` type is a union type of the following keywords:
 
 - `ISO6391` (ISO 639-1)
 - `ISO6392` (ISO 639-2)
@@ -74,7 +76,7 @@ The following keywords are available:
 - `region`
 - `nativeRegion`
 
-##### Examples
+#### Example usage
 
 **Configuring a subset of locales by the IETF language tag pattern**
 
@@ -88,63 +90,22 @@ configure({
   },
 });
 
-// on other files...
+// On other files...
+import {
+  getLocales,
+  getLocaleByISO3166Alpha2,
+} from "@marcelovicentegc/i18n-iso-languages";
 
 const locales = getLocales();
+// There are 4 locale objects on the array above.
 
-console.log(JSON.stringify(locales));
-```
+// This is undefined because japanese locales are not included on the locales subset.
+const japaneseLocales = getLocaleByISO3166Alpha2("JP");
 
-<details>
-  <summary>Click here to see what the <code>console.log</code> above outputs 👀</summary>
-
-```json
-[
-  {
-    "officialLanguage": "English",
-    "region": "United States",
-    "nativeOfficialLanguage": "English",
-    "nativeRegion": "United States",
-    "ISO6391": "en",
-    "ISO6392": "eng",
-    "ISO31661Alpha2": "US",
-    "ISO31661Alpha3": "USA",
-    "IETFLanguageTag": "en-US"
-  },
-  {
-    "officialLanguage": "Spanish",
-    "region": "Argentina",
-    "nativeOfficialLanguage": "Español",
-    "nativeRegion": "Argentina",
-    "ISO6391": "es",
-    "ISO6392": "spa",
-    "ISO31661Alpha2": "AR",
-    "ISO31661Alpha3": "ARG",
-    "IETFLanguageTag": "es-AR"
-  },
-  {
-    "officialLanguage": "Portuguese",
-    "region": "Brazil",
-    "nativeOfficialLanguage": "Português",
-    "nativeRegion": "Brasil",
-    "ISO6391": "pt",
-    "ISO6392": "por",
-    "ISO31661Alpha2": "BR",
-    "ISO31661Alpha3": "BRA",
-    "IETFLanguageTag": "pt-BR"
-  },
-  {
-    "officialLanguage": "Italian",
-    "region": "Italy",
-    "nativeOfficialLanguage": "Italiano",
-    "nativeRegion": "Italia",
-    "ISO6391": "it",
-    "ISO6392": "ita",
-    "ISO31661Alpha2": "IT",
-    "ISO31661Alpha3": "ITA",
-    "IETFLanguageTag": "it-IT"
-  }
-]
+// This returns the english (U.S.A.) locales as the japanese locales are not included on the locales subset BUT tryFallback was set to true.
+const maybeJapaneseLocales = getLocaleByiso3166Alpha2("JP", {
+  tryFallback: true,
+});
 ```
 
 </details>
@@ -161,55 +122,11 @@ configure({
   },
 });
 
-// on other files...
-
+// On other files...
+import { getLocales } from "@marcelovicentegc/i18n-iso-languages";
 const locales = getLocales();
-
-console.log(JSON.stringify(locales));
+// There are 3 locale objects on the array above.
 ```
-
-<details>
-  <summary>Click here to see what the <code>console.log</code> above outputs 👀</summary>
-
-```json
-[
-  {
-    "officialLanguage": "Chinese",
-    "region": "China",
-    "nativeOfficialLanguage": "中文",
-    "nativeRegion": "中华人民共和国",
-    "ISO6391": "zh",
-    "ISO6392": "zho",
-    "ISO31661Alpha2": "CN",
-    "ISO31661Alpha3": "CHN",
-    "IETFLanguageTag": "zh-CN"
-  },
-  {
-    "officialLanguage": "Spanish",
-    "region": "Mexico",
-    "nativeOfficialLanguage": "Español",
-    "nativeRegion": "México",
-    "ISO6391": "es",
-    "ISO6392": "spa",
-    "ISO31661Alpha2": "MX",
-    "ISO31661Alpha3": "MEX",
-    "IETFLanguageTag": "es-MX"
-  },
-  {
-    "officialLanguage": "Portuguese",
-    "region": "Brazil",
-    "nativeOfficialLanguage": "Português",
-    "nativeRegion": "Brasil",
-    "ISO6391": "pt",
-    "ISO6392": "por",
-    "ISO31661Alpha2": "BR",
-    "ISO31661Alpha3": "BRA",
-    "IETFLanguageTag": "pt-BR"
-  }
-]
-```
-
-</details>
 
 **Configuring a subset of locales by the ISO 639-2 standard**
 
@@ -223,88 +140,11 @@ configure({
   },
 });
 
-// on other files...
-
+// On other files...
+import { getLocales } from "@marcelovicentegc/i18n-iso-languages";
 const locales = getLocales();
-
-console.log(JSON.stringify(locales));
+// Every spanish and arabic locale objects are included on the array above.
 ```
-
-<details>
-  <summary>Click here to see what the <code>console.log</code> above outputs 👀</summary>
-
-```json
-[
-  {
-    "officialLanguage": "Spanish",
-    "region": "Mexico",
-    "nativeOfficialLanguage": "Español",
-    "nativeRegion": "México",
-    "ISO6391": "es",
-    "ISO6392": "spa",
-    "ISO31661Alpha2": "MX",
-    "ISO31661Alpha3": "MEX",
-    "IETFLanguageTag": "es-MX"
-  },
-  {
-    "officialLanguage": "Spanish",
-    "region": "Colombia",
-    "nativeOfficialLanguage": "Español",
-    "nativeRegion": "Colombia",
-    "ISO6391": "es",
-    "ISO6392": "spa",
-    "ISO31661Alpha2": "CO",
-    "ISO31661Alpha3": "COL",
-    "IETFLanguageTag": "es-CO"
-  },
-  {
-    "officialLanguage": "Spanish",
-    "region": "Spain",
-    "nativeOfficialLanguage": "Español",
-    "nativeRegion": "España",
-    "ISO6391": "es",
-    "ISO6392": "spa",
-    "ISO31661Alpha2": "ES",
-    "ISO31661Alpha3": "ESP",
-    "IETFLanguageTag": "es-ES"
-  },
-  {
-    "officialLanguage": "Spanish",
-    "region": "Argentina",
-    "nativeOfficialLanguage": "Español",
-    "nativeRegion": "Argentina",
-    "ISO6391": "es",
-    "ISO6392": "spa",
-    "ISO31661Alpha2": "AR",
-    "ISO31661Alpha3": "ARG",
-    "IETFLanguageTag": "es-AR"
-  },
-  {
-    "officialLanguage": "Egyptian Arabic",
-    "region": "Egypt",
-    "nativeOfficialLanguage": "اللهجه المصريه",
-    "nativeRegion": "جمهورية مصر العربية",
-    "ISO6391": "ar",
-    "ISO6392": "arb",
-    "ISO31661Alpha2": "EG",
-    "ISO31661Alpha3": "EGY",
-    "IETFLanguageTag": "ar-EG"
-  },
-  {
-    "officialLanguage": "Standard Arabic",
-    "region": "Arabic League",
-    "nativeOfficialLanguage": "عربي فصيح",
-    "nativeRegion": "جامعة الدول العربية",
-    "ISO6391": "ar",
-    "ISO6392": "arb",
-    "ISO31661Alpha2": "AE",
-    "ISO31661Alpha3": "ARE",
-    "IETFLanguageTag": "ar"
-  }
-]
-```
-
-</details>
 
 **Configuring a subset of locales by the ISO 639-2 standard**
 
@@ -318,77 +158,27 @@ configure({
   },
 });
 
-// on other files...
-
+// On other files...
+import { getLocales } from "@marcelovicentegc/i18n-iso-languages";
 const locales = getLocales();
-
-console.log(JSON.stringify(locales));
+// Every portuguese, english and chinese locale objects are included on the array above.
 ```
 
-<details>
-  <summary>Click here to see what the <code>console.log</code> above outputs 👀</summary>
+```tsx
+import { configure } from "@marcelovicentegc/i18n-iso-languages";
 
-```json
-[
-  {
-    "officialLanguage": "English",
-    "region": "United States",
-    "nativeOfficialLanguage": "English",
-    "nativeRegion": "United States",
-    "ISO6391": "en",
-    "ISO6392": "eng",
-    "ISO31661Alpha2": "US",
-    "ISO31661Alpha3": "USA",
-    "IETFLanguageTag": "en-US"
+configure({
+  localesSubset: {
+    lookupKey: "officialLanguage",
+    locales: ["Portuguese", "English", "Chinese"],
   },
-  {
-    "officialLanguage": "English",
-    "region": "United Kingdom",
-    "nativeOfficialLanguage": "English",
-    "nativeRegion": "United Kingdom",
-    "ISO6391": "en",
-    "ISO6392": "eng",
-    "ISO31661Alpha2": "GB",
-    "ISO31661Alpha3": "GBR",
-    "IETFLanguageTag": "en-GB"
-  },
-  {
-    "officialLanguage": "Chinese",
-    "region": "China",
-    "nativeOfficialLanguage": "中文",
-    "nativeRegion": "中华人民共和国",
-    "ISO6391": "zh",
-    "ISO6392": "zho",
-    "ISO31661Alpha2": "CN",
-    "ISO31661Alpha3": "CHN",
-    "IETFLanguageTag": "zh-CN"
-  },
-  {
-    "officialLanguage": "Portuguese",
-    "region": "Brazil",
-    "nativeOfficialLanguage": "Português",
-    "nativeRegion": "Brasil",
-    "ISO6391": "pt",
-    "ISO6392": "por",
-    "ISO31661Alpha2": "BR",
-    "ISO31661Alpha3": "BRA",
-    "IETFLanguageTag": "pt-BR"
-  },
-  {
-    "officialLanguage": "Portuguese",
-    "region": "Portugal",
-    "nativeOfficialLanguage": "Português",
-    "nativeRegion": "Portugal",
-    "ISO6391": "pt",
-    "ISO6392": "por",
-    "ISO31661Alpha2": "PT",
-    "ISO31661Alpha3": "PRT",
-    "IETFLanguageTag": "pt-PT"
-  }
-]
+});
+
+// On other files...
+import { getLocales } from "@marcelovicentegc/i18n-iso-languages";
+const locales = getLocales();
+// Every portuguese, english and chinese locale objects are included on the array above.
 ```
-
-</details>
 
 ### getLocaleByIETFLanguageTag
 
@@ -399,35 +189,10 @@ import { getLocaleByIETFLanguageTag } from `@marcelovicentegc/i18n-iso-languages
 
 const locale = getLocaleByIETFLanguageTag("pt-BR");
 
-if (locale) {
-  const {
-    officialLanguage,
-    region,
-    nativeOfficialLanguage,
-    nativeRegion,
-    ISO6391,
-    ISO6392,
-    ISO31661Alpha2,
-    ISO31661Alpha3,
-  } = locale;
-  console.log(officialLanguage);
-  // Portuguese
-  console.log(region);
-  // Brazil
-  console.log(nativeOfficialLanguage);
-  // Português
-  console.log(nativeRegion);
-  // Brasil
-  console.log(ISO6391);
-  // pt
-  console.log(ISO6392);
-  // por
-  console.log(ISO31661Alpha2);
-  // BR
-  console.log(ISO31661Alpha3);
-  // BRA
-}
-
+// This array contains three locales. Non existent tags, or tags
+// that are not present on the locales subset (if that was set),
+// are not be made available to any other method. This is valid
+// every other method.
 const locales = getLocaleByIETFLanguageTag([
   "pt-BR",
   "pt-PT",
@@ -435,52 +200,7 @@ const locales = getLocaleByIETFLanguageTag([
   "non-existent-tag",
   "another-non-existent-tag",
 ]);
-
-console.log(locales);
 ```
-
-<details>
-  <summary>Click here to see what the <code>console.log</code> above outputs 👀</summary>
-
-```json
-[
-  {
-    "officialLanguage": "English",
-    "region": "United States",
-    "nativeOfficialLanguage": "English",
-    "nativeRegion": "United States",
-    "ISO6391": "en",
-    "ISO6392": "eng",
-    "ISO31661Alpha2": "US",
-    "ISO31661Alpha3": "USA",
-    "IETFLanguageTag": "en-US"
-  },
-  {
-    "officialLanguage": "Portuguese",
-    "region": "Brazil",
-    "nativeOfficialLanguage": "Português",
-    "nativeRegion": "Brasil",
-    "ISO6391": "pt",
-    "ISO6392": "por",
-    "ISO31661Alpha2": "BR",
-    "ISO31661Alpha3": "BRA",
-    "IETFLanguageTag": "pt-BR"
-  },
-  {
-    "officialLanguage": "Portuguese",
-    "region": "Portugal",
-    "nativeOfficialLanguage": "Português",
-    "nativeRegion": "Portugal",
-    "ISO6391": "pt",
-    "ISO6392": "por",
-    "ISO31661Alpha2": "PT",
-    "ISO31661Alpha3": "PRT",
-    "IETFLanguageTag": "pt-PT"
-  }
-]
-```
-
-</details>
 
 ### getLocalesByOfficialLanguage
 
@@ -489,53 +209,7 @@ Get locales object by official language.
 ```tsx
 import { getLocalesByOfficialLanguage } from `@marcelovicentegc/i18n-iso-languages`;
 
-const locales = getLocalesByOfficialLanguage("portuguese");
+const locales = getLocalesByOfficialLanguage("Portuguese");
 
-if (locales.length) {
-  locales.forEach(
-    ({
-      region,
-      nativeOfficialLanguage,
-      nativeRegion,
-      ISO6391,
-      ISO6392,
-      ISO31661Alpha2,
-      ISO31661Alpha3,
-      IETFLanguageTag,
-    }) => {
-      console.log(region);
-      console.log(nativeOfficialLanguage);
-      console.log(nativeRegion);
-      console.log(ISO6391);
-      console.log(ISO31661Alpha2);
-      console.log(ISO31661Alpha3);
-      console.log(IETFLanguageTag);
-    }
-  );
-}
+const moreLocales = getLocalesByOfficialLanguage(["English", "Spanish"]);
 ```
-
-<details>
-  <summary>Click here to see what the <code>console.log</code> above outputs 👀</summary>
-
-```ts
-// Brazil
-// Português
-// Brasil
-// pt
-// por
-// BR
-// BRA
-// pt-BR
-
-// Portugal
-// Português
-// Portugal
-// pt
-// por
-// PT
-// PRT
-// pt-PT
-```
-
-</details>
