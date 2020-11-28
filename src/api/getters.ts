@@ -25,6 +25,8 @@ import { Options } from "./types";
  *
  * const localeFromFallback: Locale = getLocaleByIETFLanguageTag("non-existent-tag", { tryFallback: true })
  * ```
+ *
+ * @returns `Locale` | `Locale[]` | `undefined`
  */
 export function getLocaleByIETFLanguageTag(
   tag: string | string[],
@@ -45,7 +47,10 @@ export function getLocaleByIETFLanguageTag(
  * import { getLocalesByOfficialLanguage } from `@marcelovicentegc/i18n-iso-languages`
  *
  * const locales = getLocalesByOfficialLanguage("Portuguese")
+ * const moreLocales = getLocalesByOfficialLanguage(["Portuguese", "Japanese", "Russian"])
  * ```
+ *
+ * @returns `Locale[]`
  */
 export function getLocalesByOfficialLanguage(
   language: string | string[],
@@ -58,6 +63,19 @@ export function getLocalesByOfficialLanguage(
   });
 }
 
+/**
+ * Get a single or multiple locale objects by region.
+ *
+ * ### @example
+ * ```tsx
+ * import { getlocaleByRegion } from `@marcelovicentegc/i18n-iso-languages`
+ *
+ * const locale = getlocaleByRegion("Austria")
+ * const locales = getLocaleByRegion(["Austria", "South Korea"])
+ * ```
+ *
+ * @returns `Locale` | `Locale[]` | `undefined`
+ */
 export function getLocaleByRegion(
   region: string | string[],
   options?: Options
@@ -69,7 +87,31 @@ export function getLocaleByRegion(
   });
 }
 
-export function getLocaleByISO3166Alpha2(
+/**
+ * Get a single or multiple locale objects by its ISO 3166-1 alpha-2 code.
+ *
+ * ISO 3166-1 alpha-2 codes are two-letter country codes defined in ISO 3166-1,
+ * part of the ISO 3166 standard published by the International Organization for Standardization (ISO),
+ * to represent countries, dependent territories, and special areas of geographical interest.
+ * They are the most widely used of the country codes published by ISO (the others being alpha-3 and numeric),
+ * and are used most prominently for the Internet's country code top-level domains (with a few exceptions).
+ * They are also used as country identifiers extending the postal code when appropriate within the international postal system for paper mail,
+ * and has replaced the previous one consisting one-letter codes.
+ * They were first included as part of the ISO 3166 standard in its first edition in 1974.
+ *
+ * For more information, see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+ *
+ * ### @example
+ * ```tsx
+ * import { getLocaleByISO31661Alpha2 } from `@marcelovicentegc/i18n-iso-languages`
+ *
+ * const locale = getLocaleByISO31661Alpha2("IT")
+ * const locales = getLocaleByISO31661Alpha2(["IT", "EG", "RO"])
+ * ```
+ *
+ * @returns `Locale` | `Locale[]` | `undefined`
+ */
+export function getLocaleByISO31661Alpha2(
   countryCode: string | string[],
   options?: Options
 ) {

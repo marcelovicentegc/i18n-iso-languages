@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.9.0] 11/28/2020
+
+### Added
+
+- `getLocaleByRegion`, `getLocaleByISO31661Alpha2` and `getLocales` jsDocs, as well as improved `getLocalesByOfficialLanguage` and `getLocaleByIETFLanguageTag` jsDocs.
+
+### Fixed
+
+- Renamed `getLocaleByISO3166Alpha2` function to `getLocaleByISO31661Alpha2` to match the entire code in camel case.
+
 ## [0.8.0] 11/23/2020
 
 ### Added

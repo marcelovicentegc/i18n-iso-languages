@@ -1,6 +1,6 @@
 export {
   getLocaleByIETFLanguageTag,
-  getLocaleByISO3166Alpha2,
+  getLocaleByISO31661Alpha2,
   getLocaleByRegion,
   getLocalesByOfficialLanguage,
   getLocales,

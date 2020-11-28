@@ -47,6 +47,12 @@ Easy and flexible localization library based on the ISO language set standards.
 
 You can play with this package on it's [playground](https://marcelovicentegc.github.io/i18n-iso-languages/)
 
+- [configure](https://github.com/marcelovicentegc/i18n-iso-languages#configure)
+- [getLocaleByIETFLanguageTag](https://github.com/marcelovicentegc/i18n-iso-languages#getlocalebyietflanguagetag)
+- [getLocalesByOfficialLanguage](https://github.com/marcelovicentegc/i18n-iso-languages#getlocalesbyofficiallanguage)
+- [getLocaleByRegion](https://github.com/marcelovicentegc/i18n-iso-languages#getlocalebyregion)
+- [getLocaleByISO31661Alpha2](https://github.com/marcelovicentegc/i18n-iso-languages#getlocalebyiso31661alpha2)
+
 ### configure
 
 You should use this method if you're willing to override some default behavior, specifically the locales made available and the default locale to be used as a fallback if any of the methods don't find the locales being queried.
@@ -240,4 +246,28 @@ import { getLocalesByOfficialLanguage } from `@marcelovicentegc/i18n-iso-languag
 const locales = getLocalesByOfficialLanguage("Portuguese");
 
 const moreLocales = getLocalesByOfficialLanguage(["English", "Spanish"]);
+```
+
+### getLocaleByRegion
+
+Get a single or multiple locale objects by region.
+
+```tsx
+import { getlocaleByRegion } from `@marcelovicentegc/i18n-iso-languages`;
+
+const locale = getlocaleByRegion("Austria");
+
+const locales = getLocaleByRegion(["Austria", "South Korea"]);
+```
+
+### getLocaleByISO31661Alpha2
+
+Get a single or multiple locale objects by its [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.
+
+```tsx
+import { getLocaleByISO31661Alpha2 } from `@marcelovicentegc/i18n-iso-languages`;
+
+const locale = getLocaleByISO31661Alpha2("IT");
+
+const locales = getLocaleByISO31661Alpha2(["IT", "EG", "RO"]);
 ```

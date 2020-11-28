@@ -2,7 +2,7 @@ export { configure } from "./configure";
 export {
   getLocalesByOfficialLanguage,
   getLocaleByRegion,
-  getLocaleByISO3166Alpha2,
+  getLocaleByISO31661Alpha2,
   getLocaleByIETFLanguageTag,
   getLocales,
 } from "./getters";
