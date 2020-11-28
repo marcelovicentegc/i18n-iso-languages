@@ -49,11 +49,69 @@ You can play with this package on it's [playground](https://marcelovicentegc.git
 
 > ### Summary
 >
-> - [configure](https://github.com/marcelovicentegc/i18n-iso-languages#configure)
 > - [getLocaleByIETFLanguageTag](https://github.com/marcelovicentegc/i18n-iso-languages#getlocalebyietflanguagetag)
 > - [getLocalesByOfficialLanguage](https://github.com/marcelovicentegc/i18n-iso-languages#getlocalesbyofficiallanguage)
 > - [getLocaleByRegion](https://github.com/marcelovicentegc/i18n-iso-languages#getlocalebyregion)
 > - [getLocaleByISO31661Alpha2](https://github.com/marcelovicentegc/i18n-iso-languages#getlocalebyiso31661alpha2)
+> - [configure](https://github.com/marcelovicentegc/i18n-iso-languages#configure)
+
+### getLocaleByIETFLanguageTag
+
+Get a single or multiple locale objects by IETF language tag.
+
+```tsx
+import { getLocaleByIETFLanguageTag } from `@marcelovicentegc/i18n-iso-languages`;
+
+const locale = getLocaleByIETFLanguageTag("pt-BR");
+
+// This array contains three locales. Non existent tags, or tags
+// that are not present on the locales subset (if that was set),
+// are not be made available to any other method. This is valid
+// every other method.
+const locales = getLocaleByIETFLanguageTag([
+  "pt-BR",
+  "pt-PT",
+  "en-US",
+  "non-existent-tag",
+  "another-non-existent-tag",
+]);
+```
+
+### getLocalesByOfficialLanguage
+
+Get locales object by official language.
+
+```tsx
+import { getLocalesByOfficialLanguage } from `@marcelovicentegc/i18n-iso-languages`;
+
+const locales = getLocalesByOfficialLanguage("Portuguese");
+
+const moreLocales = getLocalesByOfficialLanguage(["English", "Spanish"]);
+```
+
+### getLocaleByRegion
+
+Get a single or multiple locale objects by region.
+
+```tsx
+import { getlocaleByRegion } from `@marcelovicentegc/i18n-iso-languages`;
+
+const locale = getlocaleByRegion("Austria");
+
+const locales = getLocaleByRegion(["Austria", "South Korea"]);
+```
+
+### getLocaleByISO31661Alpha2
+
+Get a single or multiple locale objects by its [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.
+
+```tsx
+import { getLocaleByISO31661Alpha2 } from `@marcelovicentegc/i18n-iso-languages`;
+
+const locale = getLocaleByISO31661Alpha2("IT");
+
+const locales = getLocaleByISO31661Alpha2(["IT", "EG", "RO"]);
+```
 
 ### configure
 
@@ -214,62 +272,4 @@ configure({
 import { getLocales } from "@marcelovicentegc/i18n-iso-languages";
 const locales = getLocales();
 // Every portuguese, english and chinese locale objects are included on the array above.
-```
-
-### getLocaleByIETFLanguageTag
-
-Get a single or multiple locale objects by IETF language tag.
-
-```tsx
-import { getLocaleByIETFLanguageTag } from `@marcelovicentegc/i18n-iso-languages`;
-
-const locale = getLocaleByIETFLanguageTag("pt-BR");
-
-// This array contains three locales. Non existent tags, or tags
-// that are not present on the locales subset (if that was set),
-// are not be made available to any other method. This is valid
-// every other method.
-const locales = getLocaleByIETFLanguageTag([
-  "pt-BR",
-  "pt-PT",
-  "en-US",
-  "non-existent-tag",
-  "another-non-existent-tag",
-]);
-```
-
-### getLocalesByOfficialLanguage
-
-Get locales object by official language.
-
-```tsx
-import { getLocalesByOfficialLanguage } from `@marcelovicentegc/i18n-iso-languages`;
-
-const locales = getLocalesByOfficialLanguage("Portuguese");
-
-const moreLocales = getLocalesByOfficialLanguage(["English", "Spanish"]);
-```
-
-### getLocaleByRegion
-
-Get a single or multiple locale objects by region.
-
-```tsx
-import { getlocaleByRegion } from `@marcelovicentegc/i18n-iso-languages`;
-
-const locale = getlocaleByRegion("Austria");
-
-const locales = getLocaleByRegion(["Austria", "South Korea"]);
-```
-
-### getLocaleByISO31661Alpha2
-
-Get a single or multiple locale objects by its [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.
-
-```tsx
-import { getLocaleByISO31661Alpha2 } from `@marcelovicentegc/i18n-iso-languages`;
-
-const locale = getLocaleByISO31661Alpha2("IT");
-
-const locales = getLocaleByISO31661Alpha2(["IT", "EG", "RO"]);
 ```
