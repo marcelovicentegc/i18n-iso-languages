@@ -47,11 +47,13 @@ Easy and flexible localization library based on the ISO language set standards.
 
 You can play with this package on it's [playground](https://marcelovicentegc.github.io/i18n-iso-languages/)
 
-- [configure](https://github.com/marcelovicentegc/i18n-iso-languages#configure)
-- [getLocaleByIETFLanguageTag](https://github.com/marcelovicentegc/i18n-iso-languages#getlocalebyietflanguagetag)
-- [getLocalesByOfficialLanguage](https://github.com/marcelovicentegc/i18n-iso-languages#getlocalesbyofficiallanguage)
-- [getLocaleByRegion](https://github.com/marcelovicentegc/i18n-iso-languages#getlocalebyregion)
-- [getLocaleByISO31661Alpha2](https://github.com/marcelovicentegc/i18n-iso-languages#getlocalebyiso31661alpha2)
+> ### Summary
+>
+> - [configure](https://github.com/marcelovicentegc/i18n-iso-languages#configure)
+> - [getLocaleByIETFLanguageTag](https://github.com/marcelovicentegc/i18n-iso-languages#getlocalebyietflanguagetag)
+> - [getLocalesByOfficialLanguage](https://github.com/marcelovicentegc/i18n-iso-languages#getlocalesbyofficiallanguage)
+> - [getLocaleByRegion](https://github.com/marcelovicentegc/i18n-iso-languages#getlocalebyregion)
+> - [getLocaleByISO31661Alpha2](https://github.com/marcelovicentegc/i18n-iso-languages#getlocalebyiso31661alpha2)
 
 ### configure
 
