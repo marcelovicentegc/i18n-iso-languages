@@ -1,4 +1,6 @@
-import React, { Fragment, ReactNode, SyntheticEvent } from "react";
+import React, { Fragment, ReactNode, SyntheticEvent, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { Locale } from "@marcelovicentegc/i18n-iso-languages";
 import { CodeBlock } from "./CodeBlock";
 import { Collapsible } from "./Collapsible";
@@ -20,10 +22,36 @@ interface CardProps {
 }
 
 export function Card({ title, sections }: CardProps) {
+  const [displayChain, setDisplayChain] = useState(false);
+
   return (
     <>
-      <div className="card">
-        <h3>{title}</h3>
+      <div className="card" id={title}>
+        <div
+          className="row"
+          onMouseEnter={() => setDisplayChain(true)}
+          onMouseLeave={() => setDisplayChain(false)}
+        >
+          <div
+            style={{
+              position: "relative",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              left: -24,
+              bottom: 2,
+              width: 24,
+              cursor: displayChain ? "pointer" : "default",
+            }}
+          >
+            {displayChain && (
+              <Link href={`/#${title}`} scroll={false}>
+                <Image src="/chain.png" alt={title} width="18" height="18" />
+              </Link>
+            )}
+          </div>
+          <h3>{title}</h3>
+        </div>
         {sections.map(({ inputs, onClick, code, results }, index) => {
           return (
             <Fragment key={index}>
@@ -70,6 +98,13 @@ export function Card({ title, sections }: CardProps) {
             transition: color 0.15s ease, border-color 0.15s ease;
           }
 
+          .card .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+          }
+
           .card button {
             padding: 0.5rem;
             border-radius: 4px;
@@ -96,7 +131,7 @@ export function Card({ title, sections }: CardProps) {
           }
 
           .card h3 {
-            margin: 0 0 1rem 0;
+            margin: 0 0 1rem -24px;
             font-size: 1.5rem;
           }
 

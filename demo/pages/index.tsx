@@ -9,6 +9,7 @@ import {
   getLocaleByIETFLanguageTag,
   Locale,
   getLocalesByOfficialLanguage,
+  getLocaleByRegion,
 } from "@marcelovicentegc/i18n-iso-languages";
 import { ToastContainer, toast } from "react-toastify";
 import { Card } from "../components/Card";
@@ -94,6 +95,12 @@ const defaultSingleLocaleByLanguageTagQuery = "hi-IN";
 const defaultMultipleLocalesByLanguageTagQuery = ["en-US", "es-MX"];
 const defaultSingleLocaleByOfficialLanguageQuery = "Portuguese";
 const defaultMultipleLocalesByOfficialLanguageQuery = ["Portuguese", "Spanish"];
+const defaultSingleLocaleByRegionQuery = "United States";
+const defaultMultipleLocalesByRegionQuery = [
+  "Brazil",
+  "China",
+  "United States",
+];
 
 configure({
   localesSubset: {
@@ -123,6 +130,14 @@ export default function Home() {
   const [
     displayMultipleLocalesByOfficialLanguageResult,
     setDisplayMultipleLocalesByOfficialLanguageResult,
+  ] = useState(false);
+  const [
+    displaySingleLocaleByRegionResult,
+    setDisplaySingleLocaleByRegionResult,
+  ] = useState(false);
+  const [
+    displayMultipleLocalesByRegionResult,
+    setDisplayMultipleLocalesByRegionResult,
   ] = useState(false);
   const [
     demoLocalesPlaceholder,
@@ -161,6 +176,19 @@ export default function Home() {
     multipleLocalesByOfficialLanguage,
     setMultipleLocalesByOfficialLanguage,
   ] = useState<Locale[]>([]);
+  const [
+    multipleLocalesByRegionQuery,
+    setMultipleLocalesByRegionQuery,
+  ] = useState(defaultMultipleLocalesByRegionQuery);
+  const [singleLocaleByRegionQuery, setSingleLocaleByRegionQuery] = useState(
+    defaultSingleLocaleByRegionQuery
+  );
+  const [singleLocaleByRegion, setSingleLocaleByRegion] = useState<
+    Locale[] | Locale
+  >();
+  const [multipleLocalesByRegion, setMultipleLocalesByRegion] = useState<
+    Locale[] | Locale
+  >([]);
 
   const options: { value: LocaleKey; label: string }[] = [
     { value: "IETFLanguageTag", label: "IETF language tag" },
@@ -252,6 +280,19 @@ export default function Home() {
     setDisplayMultipleLocalesByOfficialLanguageResult(true);
   };
 
+  const handleSingleLocaleByRegion = () => {
+    const locale = getLocaleByRegion(singleLocaleByRegionQuery);
+
+    setSingleLocaleByRegion(locale);
+    setDisplaySingleLocaleByRegionResult(true);
+  };
+
+  const handleMultipleLocalesByRegion = () => {
+    const locale = getLocaleByRegion(multipleLocalesByRegionQuery);
+    setMultipleLocalesByRegion(locale);
+    setDisplayMultipleLocalesByRegionResult(true);
+  };
+
   const configureCode = `
 import { configure } from '@marcelovicentegc/i18n-iso-languages'
                 
@@ -303,15 +344,28 @@ const locales = getLocaleByIETFLanguageTag([${multipleLocalesByLanguageTagQuery.
   )}]) as Locale[]`;
 
   const singleLocaleByOfficialLanguageCode = `
-import { getLocalesByOfficialLanguage, Locale } from '@marcelovicentegc/i18n-iso-languages'
+import { getLocalesByOfficialLanguage } from '@marcelovicentegc/i18n-iso-languages'
                 
-const locales = getLocalseByOfficialLanguage('${singleLocaleByOfficialLanguageQuery}')
+const locales = getLocalesByOfficialLanguage('${singleLocaleByOfficialLanguageQuery}')
                 `;
 
   const multipleLocalesByOfficialLanguageCode = `
-import { getLocalesByOfficialLanguage, Locale } from '@marcelovicentegc/i18n-iso-languages'
+import { getLocalesByOfficialLanguage } from '@marcelovicentegc/i18n-iso-languages'
                 
 const locales = getLocalesByOfficialLanguage([${multipleLocalesByOfficialLanguageQuery.map(
+    (locale) => `'${locale}'`
+  )}])`;
+
+  const singleLocaleByRegionCode = `
+import { getLocaleByRegion } from '@marcelovicentegc/i18n-iso-languages'
+                
+const locales = getLocaleByRegion('${singleLocaleByRegionQuery}')
+                `;
+
+  const multipleLocalesByRegionCode = `
+import { getLocaleByRegion, Locale } from '@marcelovicentegc/i18n-iso-languages'
+                  
+const locales = getLocaleByRegion([${multipleLocalesByRegionQuery.map(
     (locale) => `'${locale}'`
   )}])`;
 
@@ -513,6 +567,72 @@ const locales = getLocalesByOfficialLanguage([${multipleLocalesByOfficialLanguag
                     event.preventDefault();
                     setDisplayMultipleLocalesByOfficialLanguageResult(
                       !displayMultipleLocalesByOfficialLanguageResult
+                    );
+                  },
+                },
+              },
+            ]}
+          />
+          <Card
+            title="getLocaleByRegion"
+            sections={[
+              {
+                inputs: (
+                  <>
+                    <h4>
+                      You can get multiple locales by region by providing a
+                      single region...
+                    </h4>
+                    <Input
+                      placeholder={defaultSingleLocaleByRegionQuery}
+                      value={singleLocaleByRegionQuery}
+                      onChange={(event) => {
+                        setSingleLocaleByRegionQuery(event.target.value);
+                      }}
+                    />
+                  </>
+                ),
+                code: singleLocaleByRegionCode,
+                onClick: handleSingleLocaleByRegion,
+                results: {
+                  data: singleLocaleByRegion,
+                  display: displaySingleLocaleByRegionResult,
+                  onToggle: (event) => {
+                    event.preventDefault();
+                    setDisplaySingleLocaleByRegionResult(
+                      !displaySingleLocaleByRegionResult
+                    );
+                  },
+                },
+              },
+              {
+                inputs: (
+                  <>
+                    <h4>
+                      Or you can get multiple by providing multiple regions!
+                    </h4>
+                    <Input
+                      placeholder={defaultMultipleLocalesByRegionQuery.join(
+                        ","
+                      )}
+                      value={multipleLocalesByRegionQuery.join()}
+                      onChange={(event) => {
+                        setMultipleLocalesByRegionQuery(
+                          event.target.value.split(",")
+                        );
+                      }}
+                    />
+                  </>
+                ),
+                code: multipleLocalesByRegionCode,
+                onClick: handleMultipleLocalesByRegion,
+                results: {
+                  data: multipleLocalesByRegion,
+                  display: displayMultipleLocalesByRegionResult,
+                  onToggle: (event) => {
+                    event.preventDefault();
+                    setDisplayMultipleLocalesByRegionResult(
+                      !displayMultipleLocalesByRegionResult
                     );
                   },
                 },
