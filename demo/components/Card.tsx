@@ -1,5 +1,4 @@
 import React, { Fragment, ReactNode, SyntheticEvent, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Locale } from "@marcelovicentegc/i18n-iso-languages";
 import { CodeBlock } from "./CodeBlock";
@@ -46,7 +45,7 @@ export function Card({ title, sections }: CardProps) {
           >
             {displayChain && (
               <Link href={`/#${title}`} scroll={false}>
-                <Image src="/chain.png" alt={title} width="18" height="18" />
+                <img src="/chain.png" alt={title} width="18" height="18" />
               </Link>
             )}
           </div>
