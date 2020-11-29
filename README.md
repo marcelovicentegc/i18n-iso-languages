@@ -57,28 +57,28 @@ You can play with this package on it's [playground](https://marcelovicentegc.git
 > - configuration
 >   - [configure](https://github.com/marcelovicentegc/i18n-iso-languages#configure)
 
-> **Note on the getters**
->
-> Every getter has an `options`, optional parameter of type `Options`, which you can use to control some of the getter's behavior:
->
-> ```ts
-> interface Options {
->   tryFallback?: boolean;
-> }
-> ```
->
-> - tryFallback
->   - If this option is set to true, it will fallback to the default locale in case it doesn't find a locale or any of the locales you're looking for. The default locale is `en-US`, but you can override this with the [configure](https://github.com/marcelovicentegc/i18n-iso-languages#configure) method.
->
-> Every getter has the following type signature:
->
-> | Parameter            | Type                   | Description                                     | Defaults to              |
-> | -------------------- | ---------------------- | ----------------------------------------------- | ------------------------ |
-> | `language`           | `string` or `string[]` | Key used to find the locale or locales you need | -                        |
-> | `options` (optional) | `Options`              | Gives you the ability to control some behavior  | `{ tryFallback: false }` |
->
-> In case you give a non existent `language` input, or a `language` input that is not present on the [locales subset](https://github.com/marcelovicentegc/i18n-iso-languages#configure) (if that was set),
-> you will not be able to get it's locale. In case you give an array of languages as input and some of them either doesn't exist or are not on the locales subset, you will still receive an array of the locales found as output.
+**Note on the getters**
+
+Every getter has an `options`, optional parameter of type `Options`, which you can use to control some of the getter's behavior:
+
+```ts
+interface Options {
+  tryFallback?: boolean;
+}
+```
+
+- tryFallback
+  - If this option is set to true, it will fallback to the default locale in case it doesn't find a locale or any of the locales you're looking for. The default locale is `en-US`, but you can override this with the [configure](https://github.com/marcelovicentegc/i18n-iso-languages#configure) method.
+
+Every getter has the following type signature:
+
+| Parameter            | Type                   | Description                                     | Defaults to              |
+| -------------------- | ---------------------- | ----------------------------------------------- | ------------------------ |
+| `language`           | `string` or `string[]` | Key used to find the locale or locales you need | -                        |
+| `options` (optional) | `Options`              | Gives you the ability to control some behavior  | `{ tryFallback: false }` |
+
+In case you give a non existent `language` input, or a `language` input that is not present on the [locales subset](https://github.com/marcelovicentegc/i18n-iso-languages#configure) (if that was set),
+you will not be able to get it's locale. In case you give an array of languages as input and some of them either doesn't exist or are not on the locales subset, you will still receive an array of the locales found as output.
 
 ### getLocaleByIETFLanguageTag
 
