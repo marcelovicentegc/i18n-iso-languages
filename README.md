@@ -1,8 +1,12 @@
-# @marcelovicentegc/i18n-iso-languages
+<p align="center">
+  <img alt="i18n-iso-languages logo" src="assets/globe.png" height="300" />
+  <h3 align="center">@marcelovicentegc/i18n-iso-languages</h3>
+  <p align="center">Flexible and easy to use localization library based on the ISO language set standards</p>
+</p>
+
+---
 
 [![npm version](https://badge.fury.io/js/%40marcelovicentegc%2Fi18n-iso-languages.svg)](https://badge.fury.io/js/%40marcelovicentegc%2Fi18n-iso-languages) [![Playground](https://img.shields.io/badge/-Play%20with%20it%20%20on%20it's%20playground!-success)](https://marcelovicentegc.github.io/i18n-iso-languages)
-
-Easy and flexible localization library based on the ISO language set standards.
 
 ## Installation
 
