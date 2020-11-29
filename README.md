@@ -80,7 +80,7 @@ Every getter has the following type signature:
 In case you give a non existent `language` input, or a `language` input that is not present on the [locales subset](https://github.com/marcelovicentegc/i18n-iso-languages#configure) (if that was set),
 you will not be able to get it's locale. In case you give an array of languages as input and some of them either doesn't exist or are not on the locales subset, you will still receive an array of the locales found as output.
 
-### getLocaleByIETFLanguageTag
+### [getLocaleByIETFLanguageTag](https://marcelovicentegc.github.io/i18n-iso-languages/#getLocaleByIETFLanguageTag)
 
 Get a single or multiple locale objects by IETF language tag.
 
@@ -94,7 +94,7 @@ const locale = getLocaleByIETFLanguageTag("pt-BR");
 const locales = getLocaleByIETFLanguageTag(["pt-BR", "pt-PT", "en-US"]);
 ```
 
-### getLocalesByOfficialLanguage
+### [getLocalesByOfficialLanguage](https://marcelovicentegc.github.io/i18n-iso-languages/#getLocalesByOfficialLanguage)
 
 Get locales object by official language.
 
@@ -106,7 +106,7 @@ const locales = getLocalesByOfficialLanguage("Portuguese");
 const moreLocales = getLocalesByOfficialLanguage(["English", "Spanish"]);
 ```
 
-### getLocaleByRegion
+### [getLocaleByRegion](https://marcelovicentegc.github.io/i18n-iso-languages/#getLocaleByRegion)
 
 Get a single or multiple locale objects by region.
 
@@ -130,7 +130,7 @@ const locale = getLocaleByISO31661Alpha2("IT");
 const locales = getLocaleByISO31661Alpha2(["IT", "EG", "RO"]);
 ```
 
-### configure
+### [configure](https://marcelovicentegc.github.io/i18n-iso-languages/#configure)
 
 You should use this method if you're willing to override some default behavior, specifically the locales made available and the default locale to be used as a fallback if any of the methods don't find the locales being queried.
 
