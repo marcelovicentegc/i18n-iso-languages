@@ -44,8 +44,13 @@ export function Card({ title, sections }: CardProps) {
             }}
           >
             {displayChain && (
-              <Link href={`/#${title}`} scroll={false}>
-                <img src="/chain.png" alt={title} width="18" height="18" />
+              <Link href={`/i18n-iso-languages#${title}`} scroll={false}>
+                <img
+                  src="/i18n-iso-languages/chain.png"
+                  alt={title}
+                  width="18"
+                  height="18"
+                />
               </Link>
             )}
           </div>
