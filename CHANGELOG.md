@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.11.0] 12/07/2020
+
+### Added
+
+- Language support for:
+
+  - Czech (Czech Republic)
+  - Norwegian (Norway)
+
 ## [0.10.0] 12/07/2020
 
 ### Added
