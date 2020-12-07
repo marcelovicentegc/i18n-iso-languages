@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.10.0] 12/07/2020
+
+### Added
+
+- Language support for:
+
+  - Dutch (Netherlands and Belgium)
+  - Swedish (Sweden)
+  - Finnish (Finland)
+
 ## [0.9.0] 11/28/2020
 
 ### Added
