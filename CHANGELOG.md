@@ -1,5 +1,35 @@
 # Changelog
 
+## [0.12.0] 12/12/2020
+
+### Added
+
+- Language support for:
+  - Assamese (India)
+  - Afar (Djibouti)
+  - Zulu (South Africa)
+  - Xhosa (South Africa)
+  - Afrikaans (South Africa)
+  - Pedi (South Africa)
+  - Tswana (South Africa)
+  - Southern Sotho (South Africa)
+  - Tsonga (South Africa)
+  - Swazi (South Africa)
+  - Venda (South Africa)
+  - Southern Ndebele (South Africa)
+  - Albanian (Albania)
+  - Aragonese (Spain)
+  - Armenian (Armenia)
+  - Azerbaijani (Azerbaijan)
+  - Basque (Spain)
+  - Belarusian (Belarus)
+  - Bislama (Vanuatu)
+  - Bosnian (Bosnia and Herzegovina)
+  - Breton (France)
+  - Bulgarian (Bulgaria)
+  - Burmese (Myanmar)
+  - Abkhaz (Abkhazia)
+
 ## [0.11.0] 12/07/2020
 
 ### Added
