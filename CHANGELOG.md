@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.12.1] 12/14/2020
+
+### Changed
+
+- Romanian native official language.
+
 ## [0.12.0] 12/12/2020
 
 ### Added

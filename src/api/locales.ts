@@ -312,7 +312,7 @@ export const locales: Locale[] = [
   {
     officialLanguage: "Romanian",
     region: "Romania",
-    nativeOfficialLanguage: "limba română",
+    nativeOfficialLanguage: "Română",
     nativeRegion: "România",
     ISO6391: "ro",
     ISO6392: "ron",
