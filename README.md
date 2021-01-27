@@ -165,6 +165,17 @@ const locale = getLocaleByISO31661Alpha2("IT");
 const locales = getLocaleByISO31661Alpha2(["IT", "EG", "RO"]);
 ```
 
+### getLocaleByISO6391
+
+Get a single or multiple locale objects by [ISO 639-1 codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).
+
+```tsx
+import { getLocalesByISO6391 } from `@marcelovicentegc/i18n-iso-languages`;
+
+const locales = getLocalesByISO6391("pt"); // returns both Brazilian Portuguese and Portuguese.
+const moreLocales = getLocalesByISO6391(["fr", "en", "pt"]);
+```
+
 ### [configure](https://marcelovicentegc.github.io/i18n-iso-languages/#configure)
 
 You should use this method if you're willing to override some default behavior, specifically the locales made available and the default locale to be used as a fallback if any of the methods don't find the locales being queried.
