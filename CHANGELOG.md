@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.13.0] 01/27/2021
+
+### Added
+
+- Method to get locales by ISO 639-1 code.
+
 ## [0.12.1] 12/14/2020
 
 ### Changed

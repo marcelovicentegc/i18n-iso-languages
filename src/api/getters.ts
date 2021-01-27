@@ -122,6 +122,35 @@ export function getLocaleByISO31661Alpha2(
   });
 }
 
+/**
+ * Get a single or multiple locale objects by ISO 639-1 codes.
+ *
+ * ISO 639 is a standardized nomenclature used to classify languages.
+ * Each language is assigned a two-letter (639-1) and three-letter (639-2 and 639-3) lowercase abbreviation, amended in later versions of the nomenclature.
+ *
+ * For more information, see https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+ *
+ * ### @example
+ * ```tsx
+ * import { getLocalesByISO6391 } from `@marcelovicentegc/i18n-iso-languages`
+ *
+ * const locales = getLocalesByISO6391("pt") // returns both Brazilian Portuguese and Portuguese.
+ * const moreLocales = getLocalesByISO6391(["fr", "en", "pt"])
+ * ```
+ *
+ * @returns `Locale` | `Locale[]` | `undefined`
+ */
+export function getLocalesByISO6391(
+  isoCode: string | string[],
+  options?: Options
+) {
+  return get({
+    key: "ISO6391",
+    possibleMatch: isoCode,
+    tryFallback: !!options?.tryFallback,
+  });
+}
+
 export function getLocales() {
   const { localesSubset } = globalConfiguration;
 
